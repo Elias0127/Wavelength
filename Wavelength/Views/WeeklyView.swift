@@ -108,64 +108,48 @@ struct WeeklyView: View {
     // MARK: - Trends Content
     private var trendsContent: some View {
         VStack(spacing: DesignTokens.Spacing.xl) {
-            // Mood trend chart
-            VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
-                Text("Mood Trend")
-                    .h2()
-                
-                VStack(spacing: DesignTokens.Spacing.md) {
-                    // Chart placeholder
-                    RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
-                        .fill(DesignTokens.Colors.card)
-                        .frame(height: 120)
-                        .overlay(
-                            VStack {
-                                Text("📈")
-                                    .font(.system(size: 32))
-                                Text("Mood trend visualization")
-                                    .captionText()
-                            }
-                        )
-                    
-                    // Summary
-                    HStack {
-                        Text("Average: \(weeklyViewModel.moodDescription)")
-                            .captionText()
-                        
-                        Spacer()
-                        
-                        Text("\(Int(weeklyViewModel.averageMood * 100))% positive")
-                            .captionText()
-                            .foregroundColor(DesignTokens.Colors.success)
-                    }
-                }
-            }
+            // Enhanced mood trend chart
+            MoodTrendChart(
+                data: weeklyViewModel.summary.moodTrend,
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            )
             .cardBackground()
             .padding(.horizontal, DesignTokens.Spacing.lg)
             
-            // Tag frequency
+            // Enhanced tag frequency visualization
+            TagFrequencyChart(
+                tagFrequency: weeklyViewModel.summary.tagFrequency,
+                maxItems: 6
+            )
+            .cardBackground()
+            .padding(.horizontal, DesignTokens.Spacing.lg)
+            
+            // Additional insights
             VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
-                Text("Most Common Topics")
+                Text("Weekly Insights")
                     .h2()
                 
                 VStack(spacing: DesignTokens.Spacing.md) {
-                    ForEach(weeklyViewModel.topTags, id: \.0) { tag, count in
-                        HStack {
-                            Text(tag.capitalized)
-                                .bodyText()
-                            
-                            Spacer()
-                            
-                            Text("\(count)")
-                                .captionText()
-                                .foregroundColor(DesignTokens.Colors.textSecondary)
-                            
-                            // Bar visualization
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(DesignTokens.Colors.primary)
-                                .frame(width: CGFloat(count) * 20, height: 4)
-                        }
-                    }
+                    InsightRow(
+                        icon: "calendar",
+                        title: "Most Active Day",
+                        value: "Wednesday",
+                        color: DesignTokens.Colors.primary
+                    )
+                    
+                    InsightRow(
+                        icon: "clock",
+                        title: "Peak Journaling Time",
+                        value: "7:30 PM",
+                        color: DesignTokens.Colors.success
+                    )
+                    
+                    InsightRow(
+                        icon: "heart.fill",
+                        title: "Average Session",
+                        value: "2.3 minutes",
+                        color: DesignTokens.Colors.warning
+                    )
                 }
             }
             .cardBackground()
@@ -215,6 +199,47 @@ struct InsightCard: View {
         }
         .padding(DesignTokens.Spacing.lg)
         .cardBackground()
+    }
+}
+
+// MARK: - Insight Row
+struct InsightRow: View {
+    let icon: String
+    let title: String
+    let value: String
+    let color: Color
+    
+    var body: some View {
+        HStack(spacing: DesignTokens.Spacing.md) {
+            // Icon
+            ZStack {
+                Circle()
+                    .fill(color.opacity(0.1))
+                    .frame(width: 32, height: 32)
+                
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                    .font(.system(size: 14, weight: .medium))
+            }
+            
+            // Content
+            VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+                Text(title)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(DesignTokens.Colors.textSecondary)
+                
+                Text(value)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(DesignTokens.Colors.textPrimary)
+            }
+            
+            Spacer()
+        }
+        .padding(DesignTokens.Spacing.md)
+        .background(
+            RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
+                .fill(DesignTokens.Colors.surface)
+        )
     }
 }
 

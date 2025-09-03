@@ -29,25 +29,89 @@ struct ReflectionView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Counselor reply card
+                    // Enhanced counselor reply with AI bubble design
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         HStack {
-                            Text("Reflection")
-                                .h2()
+                            HStack(spacing: DesignTokens.Spacing.sm) {
+                                Image(systemName: "brain.head.profile")
+                                    .foregroundColor(DesignTokens.Colors.primary)
+                                    .font(.system(size: 18, weight: .medium))
+                                
+                                Text("AI Reflection")
+                                    .h2()
+                            }
                             
                             Spacer()
                             
-                            Image(systemName: "brain.head.profile")
-                                .foregroundColor(DesignTokens.Colors.primary)
+                            // AI indicator
+                            HStack(spacing: DesignTokens.Spacing.xs) {
+                                Circle()
+                                    .fill(DesignTokens.Colors.success)
+                                    .frame(width: 8, height: 8)
+                                
+                                Text("Active")
+                                    .font(.system(size: 11, weight: .medium))
+                                    .foregroundColor(DesignTokens.Colors.success)
+                            }
                         }
                         
-                        Text(counselorReply.isEmpty ? generateCounselorReply() : counselorReply)
-                            .bodyText()
+                        // AI bubble with enhanced design
+                        HStack(alignment: .top, spacing: DesignTokens.Spacing.md) {
+                            // AI avatar
+                            ZStack {
+                                Circle()
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [DesignTokens.Colors.primary, DesignTokens.Colors.primary.opacity(0.7)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .frame(width: 32, height: 32)
+                                
+                                Image(systemName: "sparkles")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 14, weight: .medium))
+                            }
+                            
+                            // AI message bubble
+                            VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
+                                Text(counselorReply.isEmpty ? generateCounselorReply() : counselorReply)
+                                    .bodyText()
+                                    .multilineTextAlignment(.leading)
+                                
+                                // AI signature
+                                HStack {
+                                    Text("Wavelength AI")
+                                        .font(.system(size: 11, weight: .medium))
+                                        .foregroundColor(DesignTokens.Colors.primary)
+                                    
+                                    Spacer()
+                                    
+                                    Text("Just now")
+                                        .font(.system(size: 10, weight: .regular))
+                                        .foregroundColor(DesignTokens.Colors.textSecondary)
+                                }
+                            }
                             .padding(DesignTokens.Spacing.lg)
                             .background(
                                 RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
-                                    .fill(DesignTokens.Colors.primary.opacity(0.1))
+                                    .fill(DesignTokens.Colors.card)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
+                                            .stroke(
+                                                LinearGradient(
+                                                    colors: [DesignTokens.Colors.primary.opacity(0.3), DesignTokens.Colors.primary.opacity(0.1)],
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                ),
+                                                lineWidth: 1
+                                            )
+                                    )
                             )
+                            
+                            Spacer()
+                        }
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
@@ -114,9 +178,13 @@ struct ReflectionView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save Entry") {
+                        // Haptic feedback
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                        impactFeedback.impactOccurred()
                         saveEntry()
                     }
                     .foregroundColor(DesignTokens.Colors.primary)
+                    .font(.system(size: 16, weight: .semibold))
                 }
             }
         }

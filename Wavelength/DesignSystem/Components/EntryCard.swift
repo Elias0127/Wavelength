@@ -7,32 +7,35 @@ struct EntryCard: View {
     
     var body: some View {
         Button(action: onTap) {
-            VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
-                // Header
-                HStack {
-                    VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+            VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
+                // Enhanced header with better visual hierarchy
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
                         Text(entry.title)
-                            .h2()
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .foregroundColor(DesignTokens.Colors.textPrimary)
                             .lineLimit(2)
+                            .multilineTextAlignment(.leading)
                         
-                        Text(entry.timeAgo)
-                            .captionText()
+                        HStack(spacing: DesignTokens.Spacing.sm) {
+                            Text(entry.timeAgo)
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(DesignTokens.Colors.textSecondary)
+                            
+                            if entry.favorite {
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(DesignTokens.Colors.danger)
+                                    .font(.system(size: 10))
+                            }
+                        }
                     }
                     
                     Spacer()
                     
-                    VStack(alignment: .trailing, spacing: DesignTokens.Spacing.xs) {
-                        ModeBadge(mode: entry.mode)
-                        
-                        if entry.favorite {
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(DesignTokens.Colors.danger)
-                                .font(.system(size: 12))
-                        }
-                    }
+                    ModeBadge(mode: entry.mode)
                 }
                 
-                // Tags
+                // Enhanced tags section
                 if !entry.tags.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: DesignTokens.Spacing.sm) {
@@ -44,32 +47,73 @@ struct EntryCard: View {
                     }
                 }
                 
-                // Feeling and Chart
-                HStack {
-                    // Feeling pill
-                    Text(entry.feeling.displayName)
-                        .pill(
-                            backgroundColor: Color(hex: entry.feeling.color),
-                            textColor: .white
-                        )
+                // Enhanced feeling and chart section
+                HStack(alignment: .center) {
+                    // Enhanced feeling pill
+                    HStack(spacing: DesignTokens.Spacing.xs) {
+                        Circle()
+                            .fill(Color(hex: entry.feeling.color))
+                            .frame(width: 8, height: 8)
+                        
+                        Text(entry.feeling.displayName)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(Color(hex: entry.feeling.color))
+                    }
+                    .padding(.horizontal, DesignTokens.Spacing.md)
+                    .padding(.vertical, DesignTokens.Spacing.sm)
+                    .background(
+                        RoundedRectangle(cornerRadius: DesignTokens.Radius.xl)
+                            .fill(Color(hex: entry.feeling.color).opacity(0.1))
+                    )
                     
                     Spacer()
                     
-                    // Mini chart
+                    // Enhanced mini chart
                     if !entry.valenceSeries.isEmpty {
-                        MiniLineChart(data: entry.valenceSeries)
-                            .frame(width: 60, height: 20)
+                        VStack(alignment: .trailing, spacing: DesignTokens.Spacing.xs) {
+                            MiniLineChart(data: entry.valenceSeries)
+                                .frame(width: 80, height: 24)
+                            
+                            Text("\(Int(entry.averageValence * 100))%")
+                                .font(.system(size: 10, weight: .medium))
+                                .foregroundColor(DesignTokens.Colors.textSecondary)
+                        }
                     }
                 }
                 
-                // Preview text
+                // Enhanced preview text with better typography
                 Text(entry.transcript)
-                    .bodyText()
+                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .foregroundColor(DesignTokens.Colors.textPrimary)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
+                    .lineSpacing(2)
             }
             .padding(DesignTokens.Spacing.lg)
-            .cardBackground()
+            .background(
+                RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
+                    .fill(DesignTokens.Colors.card)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [
+                                        DesignTokens.Colors.border.opacity(0.3),
+                                        DesignTokens.Colors.border.opacity(0.1)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 1
+                            )
+                    )
+                    .shadow(
+                        color: DesignTokens.Shadows.card,
+                        radius: 8,
+                        x: 0,
+                        y: 4
+                    )
+            )
         }
         .buttonStyle(PlainButtonStyle())
         .accessibilityLabel("Journal entry: \(entry.title)")

@@ -39,7 +39,9 @@ class HomeViewModel: ObservableObject {
     
     private func startTimer() {
         recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.recordingDuration += 0.1
+            Task { @MainActor in
+                self.recordingDuration += 0.1
+            }
         }
     }
     

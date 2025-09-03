@@ -36,7 +36,7 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Hero section
+                    // Enhanced hero section
                     VStack(spacing: DesignTokens.Spacing.xl) {
                         // Breathing ring with talk button
                         BreathingRing(
@@ -44,28 +44,61 @@ struct HomeView: View {
                             isAnimating: !homeViewModel.isRecording
                         ) {
                             TalkButton {
+                                // Haptic feedback
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
+                                impactFeedback.impactOccurred()
                                 showRecordingModal = true
                             }
                         }
                         
-                        // Subtext
-                        Text("Take a minute… what's on your mind?")
-                            .bodyText()
-                            .foregroundColor(DesignTokens.Colors.textSecondary)
-                            .multilineTextAlignment(.center)
-                        
-                        // Daily prompt
+                        // Enhanced subtext with better typography
                         VStack(spacing: DesignTokens.Spacing.sm) {
-                            Text("Today's prompt")
-                                .captionText()
+                            Text("Take a minute… what's on your mind?")
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
+                                .foregroundColor(DesignTokens.Colors.textPrimary)
+                                .multilineTextAlignment(.center)
+                            
+                            Text("Your thoughts matter")
+                                .font(.system(size: 14, weight: .regular))
+                                .foregroundColor(DesignTokens.Colors.textSecondary)
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                        // Enhanced daily prompt with better design
+                        VStack(spacing: DesignTokens.Spacing.md) {
+                            HStack(spacing: DesignTokens.Spacing.sm) {
+                                Image(systemName: "lightbulb.fill")
+                                    .foregroundColor(DesignTokens.Colors.warning)
+                                    .font(.system(size: 14))
+                                
+                                Text("Today's prompt")
+                                    .font(.system(size: 13, weight: .semibold))
+                                    .foregroundColor(DesignTokens.Colors.textSecondary)
+                            }
                             
                             Text(appViewModel.currentPrompt)
-                                .bodyText()
+                                .font(.system(size: 16, weight: .medium, design: .rounded))
+                                .foregroundColor(DesignTokens.Colors.textPrimary)
                                 .multilineTextAlignment(.center)
+                                .lineLimit(3)
                                 .padding(DesignTokens.Spacing.lg)
                                 .background(
                                     RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
                                         .fill(DesignTokens.Colors.card)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
+                                                .stroke(
+                                                    LinearGradient(
+                                                        colors: [
+                                                            DesignTokens.Colors.primary.opacity(0.2),
+                                                            DesignTokens.Colors.primary.opacity(0.05)
+                                                        ],
+                                                        startPoint: .topLeading,
+                                                        endPoint: .bottomTrailing
+                                                    ),
+                                                    lineWidth: 1
+                                                )
+                                        )
                                 )
                         }
                     }
@@ -112,8 +145,8 @@ struct HomeView: View {
                 isPresented: $showReflection
             )
         }
-        .onChange(of: homeViewModel.showReflection) { showReflection in
-            if showReflection {
+        .onChange(of: homeViewModel.showReflection) {
+            if homeViewModel.showReflection {
                 showRecordingModal = false
                 self.showReflection = true
             }
