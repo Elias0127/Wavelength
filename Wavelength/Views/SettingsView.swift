@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Settings View
+
 struct SettingsView: View {
     @ObservedObject var appViewModel: AppViewModel
     @StateObject private var settingsViewModel: SettingsViewModel
@@ -25,7 +25,7 @@ struct SettingsView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    // Mode toggle section
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Privacy Mode")
                             .h2()
@@ -59,7 +59,7 @@ struct SettingsView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Privacy panel
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Privacy & Data")
                             .h2()
@@ -92,7 +92,7 @@ struct SettingsView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Privacy information
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Privacy Information")
                             .h2()
@@ -118,7 +118,7 @@ struct SettingsView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Disclaimers
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Important Disclaimers")
                             .h2()
@@ -146,7 +146,7 @@ struct SettingsView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // About section
+                    
                     VStack(spacing: DesignTokens.Spacing.md) {
                         Text("Wavelength")
                             .h2()
@@ -168,7 +168,7 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.large)
         }
         .sheet(isPresented: $settingsViewModel.showExportSheet) {
-            // TODO: Export sheet implementation
+            
             Text("Export functionality would be implemented here")
         }
         .alert("Erase All Data", isPresented: $settingsViewModel.showEraseConfirmation) {
@@ -188,7 +188,7 @@ struct SettingsView: View {
     }
 }
 
-// MARK: - Settings Row
+
 struct SettingsRow: View {
     let icon: String
     let title: String
@@ -233,7 +233,7 @@ struct SettingsRow: View {
     }
 }
 
-// MARK: - Privacy Sheet
+
 struct PrivacySheet: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -287,7 +287,7 @@ struct PrivacySheet: View {
     }
 }
 
-// MARK: - Crisis Resources Sheet
+
 struct CrisisResourcesSheet: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -341,7 +341,7 @@ struct CrisisResourcesSheet: View {
     }
 }
 
-// MARK: - Crisis Resource Card
+
 struct CrisisResourceCard: View {
     let title: String
     let number: String
@@ -365,7 +365,7 @@ struct CrisisResourceCard: View {
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     SettingsView(appViewModel: AppViewModel())
 }

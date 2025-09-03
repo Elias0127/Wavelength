@@ -110,6 +110,10 @@ struct RecordingModalView: View {
                                 let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
                                 impactFeedback.impactOccurred()
                                 homeViewModel.stopRecording()
+                                // Dismiss modal after stopping recording
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    isPresented = false
+                                }
                             }) {
                                 HStack(spacing: DesignTokens.Spacing.md) {
                                     Image(systemName: "stop.fill")
@@ -224,6 +228,12 @@ struct RecordingModalView: View {
                 recordingPulse = true
             } else {
                 recordingPulse = false
+            }
+        }
+        .onChange(of: homeViewModel.showReflection) {
+            // Automatically dismiss modal when reflection is ready
+            if homeViewModel.showReflection {
+                isPresented = false
             }
         }
         .alert("Microphone Permission Required", isPresented: $showPermissionAlert) {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Entry Detail View
+
 struct EntryDetailView: View {
     let entry: Entry
     @ObservedObject var appViewModel: AppViewModel
@@ -26,7 +26,7 @@ struct EntryDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: DesignTokens.Spacing.xl) {
-                // Header
+                
                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                     HStack {
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
@@ -53,7 +53,7 @@ struct EntryDetailView: View {
                         }
                     }
                     
-                    // Tags
+                    
                     if !viewModel.entry.tags.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: DesignTokens.Spacing.sm) {
@@ -68,7 +68,7 @@ struct EntryDetailView: View {
                 .cardBackground()
                 .padding(.horizontal, DesignTokens.Spacing.lg)
                 
-                // Transcript section
+                
                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                     Text("Your Words")
                         .h2()
@@ -84,7 +84,7 @@ struct EntryDetailView: View {
                 .cardBackground()
                 .padding(.horizontal, DesignTokens.Spacing.lg)
                 
-                // Counselor reply section
+                
                 if viewModel.hasCounselorReply {
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         HStack {
@@ -109,14 +109,14 @@ struct EntryDetailView: View {
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                 }
                 
-                // Valence chart section
+                
                 if viewModel.hasValenceData {
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Mood Pattern")
                             .h2()
                         
                         VStack(spacing: DesignTokens.Spacing.md) {
-                            // Chart
+                            
                             MiniLineChart(data: viewModel.entry.valenceSeries)
                                 .frame(height: 60)
                                 .background(
@@ -124,7 +124,7 @@ struct EntryDetailView: View {
                                         .fill(DesignTokens.Colors.card)
                                 )
                             
-                            // Description
+                            
                             HStack {
                                 Text("Average: \(viewModel.valenceDescription)")
                                     .captionText()
@@ -143,7 +143,7 @@ struct EntryDetailView: View {
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                 }
                 
-                // Action buttons
+                
                 VStack(spacing: DesignTokens.Spacing.md) {
                     Button(action: {
                         viewModel.confirmDelete()
@@ -184,7 +184,7 @@ struct EntryDetailView: View {
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     NavigationStack {
         EntryDetailView(

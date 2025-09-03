@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - App Mode
-enum Mode: String, CaseIterable, Identifiable {
+enum Mode: String, CaseIterable, Identifiable, Codable {
     case privateMode = "private"
     case connected = "connected"
     
@@ -36,7 +36,7 @@ enum Mode: String, CaseIterable, Identifiable {
 }
 
 // MARK: - Feeling
-enum Feeling: String, CaseIterable, Identifiable {
+enum Feeling: String, CaseIterable, Identifiable, Codable {
     case calm = "calm"
     case tense = "tense"
     case neutral = "neutral"

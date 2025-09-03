@@ -1,9 +1,9 @@
-//
-//  ContentView.swift
-//  Wavelength
-//
-//  Created by Elias Woldie on 9/3/25.
-//
+
+
+
+
+
+
 
 import SwiftUI
 

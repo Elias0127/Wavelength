@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - Journal Entry Model
-struct Entry: Identifiable, Equatable, Hashable {
+struct Entry: Identifiable, Equatable, Hashable, Codable {
     let id: UUID
     var date: Date
     var title: String

@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Home View
+
 struct HomeView: View {
     @ObservedObject var appViewModel: AppViewModel
     @StateObject private var homeViewModel = HomeViewModel()
@@ -11,13 +11,13 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    // Top bar
+                    
                     HStack {
                         ModeBadge(mode: appViewModel.mode)
                         
                         Spacer()
                         
-                        // Streak chip
+                        
                         HStack(spacing: DesignTokens.Spacing.sm) {
                             Image(systemName: "flame.fill")
                                 .foregroundColor(DesignTokens.Colors.warning)
@@ -36,22 +36,22 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Enhanced hero section
+                    
                     VStack(spacing: DesignTokens.Spacing.xl) {
-                        // Breathing ring with talk button
+                        
                         BreathingRing(
                             intensity: appViewModel.latestEntry?.averageValence ?? 0.5,
                             isAnimating: !homeViewModel.isRecording
                         ) {
                             TalkButton {
-                                // Haptic feedback
+                                
                                 let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
                                 impactFeedback.impactOccurred()
                                 showRecordingModal = true
                             }
                         }
                         
-                        // Enhanced subtext with better typography
+                        
                         VStack(spacing: DesignTokens.Spacing.sm) {
                             Text("Take a minute… what's on your mind?")
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
@@ -64,7 +64,7 @@ struct HomeView: View {
                                 .multilineTextAlignment(.center)
                         }
                         
-                        // Enhanced daily prompt with better design
+                        
                         VStack(spacing: DesignTokens.Spacing.md) {
                             HStack(spacing: DesignTokens.Spacing.sm) {
                                 Image(systemName: "lightbulb.fill")
@@ -104,13 +104,13 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Recent section
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         SectionHeader(title: "Recent")
                         
                         if let latestEntry = appViewModel.latestEntry {
                             EntryCard(entry: latestEntry) {
-                                // TODO: Navigate to entry detail
+                                
                             }
                             .padding(.horizontal, DesignTokens.Spacing.lg)
                         } else {
@@ -140,7 +140,7 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showReflection) {
             ReflectionView(
-                transcript: homeViewModel.mockTranscript,
+                transcript: homeViewModel.transcript,
                 appViewModel: appViewModel,
                 isPresented: $showReflection
             )
@@ -154,7 +154,7 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     HomeView(appViewModel: AppViewModel())
 }

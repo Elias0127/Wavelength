@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-// MARK: - Journal View Model
+
 @MainActor
 class JournalViewModel: ObservableObject {
     @Published var searchText = ""
@@ -27,7 +27,7 @@ class JournalViewModel: ObservableObject {
     
     private let appViewModel: AppViewModel
     
-    // MARK: - Available Tags
+    
     var availableTags: [String] {
         let allTags = Set(appViewModel.entries.flatMap { $0.tags })
         return Array(allTags).sorted()
@@ -37,11 +37,11 @@ class JournalViewModel: ObservableObject {
         self.appViewModel = appViewModel
     }
     
-    // MARK: - Filtered and Sorted Entries
+    
     var filteredEntries: [Entry] {
         var filtered = appViewModel.entries
         
-        // Filter by search text
+        
         if !searchText.isEmpty {
             filtered = filtered.filter { entry in
                 entry.title.localizedCaseInsensitiveContains(searchText) ||
@@ -50,14 +50,14 @@ class JournalViewModel: ObservableObject {
             }
         }
         
-        // Filter by selected tags
+        
         if !selectedTags.isEmpty {
             filtered = filtered.filter { entry in
                 !Set(entry.tags).isDisjoint(with: selectedTags)
             }
         }
         
-        // Sort entries
+        
         switch sortOrder {
         case .newest:
             filtered.sort { $0.date > $1.date }

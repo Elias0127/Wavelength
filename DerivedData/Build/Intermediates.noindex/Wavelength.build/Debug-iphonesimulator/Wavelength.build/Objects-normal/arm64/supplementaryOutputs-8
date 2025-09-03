@@ -1,0 +1,30 @@
+"/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/MiniLineChart.swift":
+  diagnostics: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.dia"
+  object: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.o"
+  const-values: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.swiftconstvalues"
+  dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.d"
+  swift-dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.swiftdeps"
+"/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/AIService.swift":
+  diagnostics: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.dia"
+  const-values: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.swiftconstvalues"
+  object: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.o"
+  dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.d"
+  swift-dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.swiftdeps"
+"/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/SettingsView.swift":
+  object: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.o"
+  swift-dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.swiftdeps"
+  const-values: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.swiftconstvalues"
+  diagnostics: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.dia"
+  dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.d"
+"/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/SpeechRecognitionService.swift":
+  swift-dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.swiftdeps"
+  const-values: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.swiftconstvalues"
+  dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.d"
+  diagnostics: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.dia"
+  object: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.o"
+"/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/DerivedSources/GeneratedAssetSymbols.swift":
+  swift-dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps"
+  const-values: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues"
+  dependencies: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.d"
+  diagnostics: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.dia"
+  object: "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.o"

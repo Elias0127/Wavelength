@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Weekly View
+
 struct WeeklyView: View {
     @ObservedObject var appViewModel: AppViewModel
     @StateObject private var weeklyViewModel: WeeklyViewModel
@@ -15,7 +15,7 @@ struct WeeklyView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    // Header
+                    
                     VStack(spacing: DesignTokens.Spacing.lg) {
                         Text("Your Week in Reflection")
                             .h1()
@@ -27,7 +27,7 @@ struct WeeklyView: View {
                     }
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Tab selector
+                    
                     Picker("View", selection: $selectedTab) {
                         ForEach(WeeklyViewModel.WeeklyTab.allCases, id: \.self) { tab in
                             Text(tab.displayName).tag(tab)
@@ -36,7 +36,7 @@ struct WeeklyView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal, DesignTokens.Spacing.lg)
                     
-                    // Content based on selected tab
+                    
                     switch selectedTab {
                     case .insights:
                         insightsContent
@@ -52,13 +52,13 @@ struct WeeklyView: View {
         }
     }
     
-    // MARK: - Insights Content
+    
     private var insightsContent: some View {
         VStack(spacing: DesignTokens.Spacing.xl) {
             if weeklyViewModel.hasData {
-                // Three main cards
+                
                 VStack(spacing: DesignTokens.Spacing.lg) {
-                    // Wins card
+                    
                     InsightCard(
                         title: "Wins",
                         icon: "checkmark.circle.fill",
@@ -66,7 +66,7 @@ struct WeeklyView: View {
                         items: weeklyViewModel.summary.wins
                     )
                     
-                    // Stressors card
+                    
                     InsightCard(
                         title: "Stressors",
                         icon: "exclamationmark.triangle.fill",
@@ -74,7 +74,7 @@ struct WeeklyView: View {
                         items: weeklyViewModel.summary.stressors
                     )
                     
-                    // Try Next card
+                    
                     InsightCard(
                         title: "Try Next",
                         icon: "lightbulb.fill",
@@ -84,9 +84,9 @@ struct WeeklyView: View {
                 }
                 .padding(.horizontal, DesignTokens.Spacing.lg)
                 
-                // CTA
+                
                 Button(action: {
-                    // TODO: Switch to Journal tab
+                    
                 }) {
                     Text("See Example Entries")
                         .primaryButton()
@@ -99,16 +99,16 @@ struct WeeklyView: View {
                     message: "Keep journaling to see your weekly insights and patterns.",
                     actionTitle: "Start Journaling"
                 ) {
-                    // TODO: Switch to Home tab
+                    
                 }
             }
         }
     }
     
-    // MARK: - Trends Content
+    
     private var trendsContent: some View {
         VStack(spacing: DesignTokens.Spacing.xl) {
-            // Enhanced mood trend chart
+            
             MoodTrendChart(
                 data: weeklyViewModel.summary.moodTrend,
                 labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -116,7 +116,7 @@ struct WeeklyView: View {
             .cardBackground()
             .padding(.horizontal, DesignTokens.Spacing.lg)
             
-            // Enhanced tag frequency visualization
+            
             TagFrequencyChart(
                 tagFrequency: weeklyViewModel.summary.tagFrequency,
                 maxItems: 6
@@ -124,7 +124,7 @@ struct WeeklyView: View {
             .cardBackground()
             .padding(.horizontal, DesignTokens.Spacing.lg)
             
-            // Additional insights
+            
             VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                 Text("Weekly Insights")
                     .h2()
@@ -158,7 +158,7 @@ struct WeeklyView: View {
     }
 }
 
-// MARK: - Insight Card
+
 struct InsightCard: View {
     let title: String
     let icon: String
@@ -202,7 +202,7 @@ struct InsightCard: View {
     }
 }
 
-// MARK: - Insight Row
+
 struct InsightRow: View {
     let icon: String
     let title: String
@@ -211,7 +211,7 @@ struct InsightRow: View {
     
     var body: some View {
         HStack(spacing: DesignTokens.Spacing.md) {
-            // Icon
+            
             ZStack {
                 Circle()
                     .fill(color.opacity(0.1))
@@ -222,7 +222,7 @@ struct InsightRow: View {
                     .font(.system(size: 14, weight: .medium))
             }
             
-            // Content
+            
             VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
                 Text(title)
                     .font(.system(size: 13, weight: .medium))
@@ -243,7 +243,7 @@ struct InsightRow: View {
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     WeeklyView(appViewModel: AppViewModel())
 }

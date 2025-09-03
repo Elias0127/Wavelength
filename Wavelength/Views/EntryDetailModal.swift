@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Entry Detail Modal
+
 struct EntryDetailModal: View {
     let entry: Entry
     @ObservedObject var appViewModel: AppViewModel
@@ -13,9 +13,9 @@ struct EntryDetailModal: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    // Diary-style header
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
-                        // Date and time header
+                        
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
                             Text(entry.formattedDate)
                                 .font(.system(size: 16, weight: .medium, design: .rounded))
@@ -26,7 +26,7 @@ struct EntryDetailModal: View {
                                 .foregroundColor(DesignTokens.Colors.textSecondary.opacity(0.7))
                         }
                         
-                        // Title (editable placeholder for future)
+                        
                         HStack {
                             Text(entry.title)
                                 .font(.system(size: 24, weight: .bold, design: .rounded))
@@ -35,13 +35,13 @@ struct EntryDetailModal: View {
                             
                             Spacer()
                             
-                            // Favorite toggle
+                            
                             Button(action: {
-                                // Haptic feedback
+                                
                                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                                 impactFeedback.impactOccurred()
                                 isFavorite.toggle()
-                                // TODO: Update entry favorite status
+                                
                             }) {
                                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                                     .foregroundColor(isFavorite ? DesignTokens.Colors.danger : DesignTokens.Colors.textSecondary)
@@ -49,7 +49,7 @@ struct EntryDetailModal: View {
                             }
                         }
                         
-                        // Mode badge
+                        
                         HStack {
                             ModeBadge(mode: entry.mode)
                             Spacer()
@@ -61,7 +61,7 @@ struct EntryDetailModal: View {
                             .fill(DesignTokens.Colors.card)
                     )
                     
-                    // Transcript section (diary-style)
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         HStack {
                             Image(systemName: "book.pages")
@@ -75,7 +75,7 @@ struct EntryDetailModal: View {
                             Spacer()
                         }
                         
-                        // Diary-style transcript with better typography
+                        
                         Text(entry.transcript)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
                             .foregroundColor(DesignTokens.Colors.textPrimary)
@@ -86,7 +86,7 @@ struct EntryDetailModal: View {
                                 RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
                                     .fill(DesignTokens.Colors.surface)
                                     .overlay(
-                                        // Subtle journal lines
+                                        
                                         VStack(spacing: 20) {
                                             ForEach(0..<8, id: \.self) { _ in
                                                 Rectangle()
@@ -104,7 +104,7 @@ struct EntryDetailModal: View {
                             .fill(DesignTokens.Colors.card)
                     )
                     
-                    // Counselor reflection section
+                    
                     if let counselorReply = entry.counselorReply, !counselorReply.isEmpty {
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                             HStack {
@@ -118,7 +118,7 @@ struct EntryDetailModal: View {
                                 
                                 Spacer()
                                 
-                                // AI indicator
+                                
                                 HStack(spacing: DesignTokens.Spacing.xs) {
                                     Circle()
                                         .fill(DesignTokens.Colors.success)
@@ -130,9 +130,9 @@ struct EntryDetailModal: View {
                                 }
                             }
                             
-                            // Speech bubble design
+                            
                             HStack(alignment: .top, spacing: DesignTokens.Spacing.md) {
-                                // AI avatar
+                                
                                 ZStack {
                                     Circle()
                                         .fill(
@@ -149,7 +149,7 @@ struct EntryDetailModal: View {
                                         .font(.system(size: 12, weight: .medium))
                                 }
                                 
-                                // Reflection bubble
+                                
                                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
                                     Text(counselorReply)
                                         .font(.system(size: 15, weight: .regular, design: .rounded))
@@ -157,7 +157,7 @@ struct EntryDetailModal: View {
                                         .multilineTextAlignment(.leading)
                                         .lineSpacing(2)
                                     
-                                    // AI signature
+                                    
                                     HStack {
                                         Text("Wavelength AI")
                                             .font(.system(size: 11, weight: .medium))
@@ -197,7 +197,7 @@ struct EntryDetailModal: View {
                         )
                     }
                     
-                    // Tags and mood section
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         HStack {
                             Image(systemName: "tag")
@@ -212,7 +212,7 @@ struct EntryDetailModal: View {
                         }
                         
                         VStack(spacing: DesignTokens.Spacing.md) {
-                            // Tags
+                            
                             if !entry.tags.isEmpty {
                                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
                                     Text("Topics")
@@ -227,14 +227,14 @@ struct EntryDetailModal: View {
                                 }
                             }
                             
-                            // Mood section
+                            
                             VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
                                 Text("How I felt")
                                     .font(.system(size: 13, weight: .medium))
                                     .foregroundColor(DesignTokens.Colors.textSecondary)
                                 
                                 HStack(spacing: DesignTokens.Spacing.md) {
-                                    // Mood pill
+                                    
                                     HStack(spacing: DesignTokens.Spacing.sm) {
                                         Circle()
                                             .fill(Color(hex: entry.feeling.color))
@@ -253,7 +253,7 @@ struct EntryDetailModal: View {
                                     
                                     Spacer()
                                     
-                                    // Mood percentage
+                                    
                                     Text("\(Int(entry.averageValence * 100))% positive")
                                         .font(.system(size: 12, weight: .medium))
                                         .foregroundColor(DesignTokens.Colors.textSecondary)
@@ -267,7 +267,7 @@ struct EntryDetailModal: View {
                             .fill(DesignTokens.Colors.card)
                     )
                     
-                    // Emotion visualization section
+                    
                     if !entry.valenceSeries.isEmpty {
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                             HStack {
@@ -283,7 +283,7 @@ struct EntryDetailModal: View {
                             }
                             
                             VStack(spacing: DesignTokens.Spacing.md) {
-                                // Larger sparkline
+                                
                                 MentalStateSparkline(data: entry.valenceSeries)
                                     .frame(height: 40)
                                     .background(
@@ -291,7 +291,7 @@ struct EntryDetailModal: View {
                                             .fill(DesignTokens.Colors.surface)
                                     )
                                 
-                                // Emotion journey caption
+                                
                                 Text(emotionJourneyCaption)
                                     .font(.system(size: 13, weight: .medium, design: .rounded))
                                     .foregroundColor(DesignTokens.Colors.textSecondary)
@@ -305,11 +305,11 @@ struct EntryDetailModal: View {
                         )
                     }
                     
-                    // Action buttons
+                    
                     VStack(spacing: DesignTokens.Spacing.md) {
-                        // Edit tags button (disabled placeholder)
+                        
                         Button(action: {
-                            // TODO: Edit tags functionality
+                            
                         }) {
                             HStack {
                                 Image(systemName: "pencil")
@@ -320,7 +320,7 @@ struct EntryDetailModal: View {
                         .disabled(true)
                         .opacity(0.5)
                         
-                        // Delete button
+                        
                         Button(action: {
                             showDeleteConfirmation = true
                         }) {
@@ -368,7 +368,7 @@ struct EntryDetailModal: View {
         }
     }
     
-    // MARK: - Computed Properties
+    
     private var emotionJourneyCaption: String {
         guard entry.valenceSeries.count >= 2 else {
             return "Single moment captured"
@@ -390,7 +390,7 @@ struct EntryDetailModal: View {
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     EntryDetailModal(
         entry: MockEntries.seed[0],

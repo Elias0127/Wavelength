@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-// MARK: - Weekly View Model
+
 @MainActor
 class WeeklyViewModel: ObservableObject {
     @Published var summary: WeeklySummary
@@ -25,7 +25,7 @@ class WeeklyViewModel: ObservableObject {
         self.summary = summary
     }
     
-    // MARK: - Computed Properties
+    
     var weekRange: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d"

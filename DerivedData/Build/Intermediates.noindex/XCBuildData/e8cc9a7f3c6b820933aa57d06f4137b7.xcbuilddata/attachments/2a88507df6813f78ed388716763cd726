@@ -1,0 +1,468 @@
+{
+  "" : {
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Wavelength-master.dia",
+    "emit-module-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Wavelength-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Wavelength-master-emit-module.dia",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Wavelength-master.swiftdeps"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ContentView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/CoreData/AppSettings+CoreDataClass.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataClass~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/CoreData/AppSettings+CoreDataProperties.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppSettings+CoreDataProperties~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/CoreData/CoreDataExtensions.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataExtensions~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/CoreData/CoreDataManager.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/CoreDataManager~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/CoreData/JournalEntry+CoreDataClass.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataClass~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/CoreData/JournalEntry+CoreDataProperties.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalEntry+CoreDataProperties~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/BreathingRing.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/BreathingRing~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/DiaryEntryCard.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DiaryEntryCard~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/EmptyState.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EmptyState~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/EntryCard.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryCard~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/MiniLineChart.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MiniLineChart~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/ModeBadge.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ModeBadge~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/MoodTrendChart.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MoodTrendChart~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/SectionHeader.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SectionHeader~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/TagChip.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagChip~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/TagFrequencyChart.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TagFrequencyChart~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/TalkButton.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/TalkButton~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Styles.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Styles~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Tokens.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Tokens~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Mock/MockEntries.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/MockEntries~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Models/Entry.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Entry~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Models/Enums.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/Enums~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/AIService.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AIService~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/AudioRecordingService.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AudioRecordingService~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/DataService.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/DataService~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/RecordingService.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingService~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Services/SpeechRecognitionService.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SpeechRecognitionService~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ViewModels/AppViewModel.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/AppViewModel~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ViewModels/EntryDetailViewModel.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailViewModel~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ViewModels/HomeViewModel.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeViewModel~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ViewModels/JournalViewModel.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalViewModel~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ViewModels/SettingsViewModel.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsViewModel~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/ViewModels/WeeklyViewModel.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyViewModel~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/EntryDetailModal.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailModal~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/EntryDetailView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/EntryDetailView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/HomeView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/HomeView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/JournalView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/JournalView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/OnboardingView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/OnboardingView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/RecordingModalView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RecordingModalView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/ReflectionView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/ReflectionView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/RootView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/RootView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/SettingsView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/WeeklyView.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WeeklyView~partial.swiftmodule"
+  },
+  "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/WavelengthApp.swift" : {
+    "const-values" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.swiftconstvalues",
+    "dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.d",
+    "diagnostics" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.dia",
+    "index-unit-output-path" : "/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.o",
+    "llvm-bc" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.bc",
+    "object" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.o",
+    "swift-dependencies" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp.swiftdeps",
+    "swiftmodule" : "/Users/eliaswoldie/Dev/projects/Wavelength/DerivedData/Build/Intermediates.noindex/Wavelength.build/Debug-iphonesimulator/Wavelength.build/Objects-normal/arm64/WavelengthApp~partial.swiftmodule"
+  }
+}

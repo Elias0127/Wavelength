@@ -1,99 +1,88 @@
 import Foundation
 import SwiftUI
 
-// MARK: - Global App State
+
 @MainActor
 class AppViewModel: ObservableObject {
     @Published var mode: Mode = .privateMode
-    @Published var entries: [Entry] = MockEntries.seed
+    @Published var entries: [Entry] = []
     @Published var hasCompletedOnboarding = false
-    @Published var currentPrompt = MockEntries.randomPrompt()
+    @Published var currentPrompt = ""
     
-    // MARK: - Computed Properties
+    private let dataService = DataService.shared
+    
+    
+    init() {
+        
+        syncWithDataService()
+    }
+    
+    private func syncWithDataService() {
+        mode = dataService.mode
+        entries = dataService.entries
+        hasCompletedOnboarding = dataService.hasCompletedOnboarding
+        currentPrompt = dataService.currentPrompt
+    }
+    
+    
     var latestEntry: Entry? {
-        entries.sorted(by: { $0.date > $1.date }).first
+        dataService.latestEntry
     }
     
     var entriesByWeek: [Date: [Entry]] {
-        let calendar = Calendar.current
-        let grouped = Dictionary(grouping: entries) { entry in
-            calendar.dateInterval(of: .weekOfYear, for: entry.date)?.start ?? entry.date
-        }
-        return grouped
+        dataService.entriesByWeek
     }
     
     var currentWeekEntries: [Entry] {
-        let calendar = Calendar.current
-        let now = Date()
-        let weekStart = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
-        return entries.filter { entry in
-            calendar.dateInterval(of: .weekOfYear, for: entry.date)?.start == weekStart
-        }
+        dataService.currentWeekEntries
     }
     
     var streak: Int {
-        // Calculate current streak based on consecutive days with entries
-        let calendar = Calendar.current
-        let sortedEntries = entries.sorted(by: { $0.date > $1.date })
-        
-        var streak = 0
-        var currentDate = calendar.startOfDay(for: Date())
-        
-        for entry in sortedEntries {
-            let entryDate = calendar.startOfDay(for: entry.date)
-            if entryDate == currentDate {
-                streak += 1
-                currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate
-            } else if entryDate < currentDate {
-                break
-            }
-        }
-        
-        return streak
+        dataService.streak
     }
     
-    // MARK: - Actions
+    
     func toggleMode() {
-        mode = mode == .privateMode ? .connected : .privateMode
+        let newMode = mode == .privateMode ? Mode.connected : Mode.privateMode
+        dataService.updateMode(newMode)
+        mode = newMode
     }
     
     func addEntry(_ entry: Entry) {
-        entries.append(entry)
-        // TODO: persist with Core Data/SQLite + Keychain for keys
+        dataService.addEntry(entry)
+        entries = dataService.entries
     }
     
     func updateEntry(id: UUID, mutate: (inout Entry) -> Void) {
-        if let index = entries.firstIndex(where: { $0.id == id }) {
-            mutate(&entries[index])
-            // TODO: persist with Core Data/SQLite + Keychain for keys
-        }
+        dataService.updateEntry(id: id, mutate: mutate)
+        entries = dataService.entries
     }
     
     func deleteEntry(id: UUID) {
-        entries.removeAll { $0.id == id }
-        // TODO: persist with Core Data/SQLite + Keychain for keys
+        dataService.deleteEntry(id: id)
+        entries = dataService.entries
     }
     
     func completeOnboarding() {
+        dataService.completeOnboarding()
         hasCompletedOnboarding = true
-        // TODO: persist onboarding state
     }
     
     func refreshPrompt() {
-        currentPrompt = MockEntries.randomPrompt()
+        dataService.refreshPrompt()
+        currentPrompt = dataService.currentPrompt
     }
     
-    func exportData() {
-        // TODO: export JSON via FileManager/share sheet
-        print("Export data functionality would be implemented here")
+    func exportData() -> Data? {
+        return dataService.exportData()
     }
     
     func eraseAllData() {
-        entries.removeAll()
-        print("Secure erase functionality would be implemented here")
+        dataService.eraseAllData()
+        syncWithDataService()
     }
     
     func getWeeklySummary() -> WeeklySummary {
-        return MockEntries.weeklySummary
+        return dataService.getWeeklySummary()
     }
 }

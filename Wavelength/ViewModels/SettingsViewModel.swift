@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-// MARK: - Settings View Model
+
 @MainActor
 class SettingsViewModel: ObservableObject {
     @Published var showExportSheet = false
@@ -23,7 +23,7 @@ class SettingsViewModel: ObservableObject {
         self.onEraseData = onEraseData
     }
     
-    // MARK: - Actions
+    
     func toggleMode() {
         onModeToggle()
     }
@@ -50,7 +50,7 @@ class SettingsViewModel: ObservableObject {
         showCrisisResources = true
     }
     
-    // MARK: - App Info
+    
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     }

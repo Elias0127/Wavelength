@@ -1,0 +1,32 @@
+{
+  "source": "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/EntryCard.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Journal entry: %@",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 119
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap to view full entry",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 77
+        }
+      }
+    ]
+  },
+  "version": 1
+}

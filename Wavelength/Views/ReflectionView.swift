@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Reflection View
+
 struct ReflectionView: View {
     let transcript: String
     @ObservedObject var appViewModel: AppViewModel
@@ -8,16 +8,16 @@ struct ReflectionView: View {
     @State private var counselorReply = ""
     @State private var tags: [String] = []
     @State private var feeling: Feeling = .neutral
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    // Transcript card
+                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Your Words")
                             .h2()
-                        
+
                         Text(transcript)
                             .bodyText()
                             .padding(DesignTokens.Spacing.lg)
@@ -28,66 +28,72 @@ struct ReflectionView: View {
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
+
                     
-                    // Enhanced counselor reply with AI bubble design
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         HStack {
                             HStack(spacing: DesignTokens.Spacing.sm) {
                                 Image(systemName: "brain.head.profile")
                                     .foregroundColor(DesignTokens.Colors.primary)
                                     .font(.system(size: 18, weight: .medium))
-                                
+
                                 Text("AI Reflection")
                                     .h2()
                             }
-                            
+
                             Spacer()
+
                             
-                            // AI indicator
                             HStack(spacing: DesignTokens.Spacing.xs) {
                                 Circle()
                                     .fill(DesignTokens.Colors.success)
                                     .frame(width: 8, height: 8)
-                                
+
                                 Text("Active")
                                     .font(.system(size: 11, weight: .medium))
                                     .foregroundColor(DesignTokens.Colors.success)
                             }
                         }
+
                         
-                        // AI bubble with enhanced design
                         HStack(alignment: .top, spacing: DesignTokens.Spacing.md) {
-                            // AI avatar
+                            
                             ZStack {
                                 Circle()
                                     .fill(
                                         LinearGradient(
-                                            colors: [DesignTokens.Colors.primary, DesignTokens.Colors.primary.opacity(0.7)],
+                                            colors: [
+                                                DesignTokens.Colors.primary,
+                                                DesignTokens.Colors.primary.opacity(0.7),
+                                            ],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         )
                                     )
                                     .frame(width: 32, height: 32)
-                                
+
                                 Image(systemName: "sparkles")
                                     .foregroundColor(.white)
                                     .font(.system(size: 14, weight: .medium))
                             }
+
                             
-                            // AI message bubble
                             VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-                                Text(counselorReply.isEmpty ? generateCounselorReply() : counselorReply)
-                                    .bodyText()
-                                    .multilineTextAlignment(.leading)
+                                Text(
+                                    counselorReply.isEmpty
+                                        ? generateCounselorReply() : counselorReply
+                                )
+                                .bodyText()
+                                .multilineTextAlignment(.leading)
+
                                 
-                                // AI signature
                                 HStack {
                                     Text("Wavelength AI")
                                         .font(.system(size: 11, weight: .medium))
                                         .foregroundColor(DesignTokens.Colors.primary)
-                                    
+
                                     Spacer()
-                                    
+
                                     Text("Just now")
                                         .font(.system(size: 10, weight: .regular))
                                         .foregroundColor(DesignTokens.Colors.textSecondary)
@@ -101,7 +107,10 @@ struct ReflectionView: View {
                                         RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
                                             .stroke(
                                                 LinearGradient(
-                                                    colors: [DesignTokens.Colors.primary.opacity(0.3), DesignTokens.Colors.primary.opacity(0.1)],
+                                                    colors: [
+                                                        DesignTokens.Colors.primary.opacity(0.3),
+                                                        DesignTokens.Colors.primary.opacity(0.1),
+                                                    ],
                                                     startPoint: .topLeading,
                                                     endPoint: .bottomTrailing
                                                 ),
@@ -109,25 +118,28 @@ struct ReflectionView: View {
                                             )
                                     )
                             )
-                            
+
                             Spacer()
                         }
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
+
                     
-                    // Tags and feeling
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Tags & Feeling")
                             .h2()
+
                         
-                        // Tags
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
                             Text("Tags")
                                 .bodyText()
                                 .foregroundColor(DesignTokens.Colors.textSecondary)
-                            
-                            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: DesignTokens.Spacing.sm) {
+
+                            LazyVGrid(
+                                columns: Array(repeating: GridItem(.flexible()), count: 3),
+                                spacing: DesignTokens.Spacing.sm
+                            ) {
                                 ForEach(suggestedTags, id: \.self) { tag in
                                     TagChip(
                                         text: tag,
@@ -138,13 +150,13 @@ struct ReflectionView: View {
                                 }
                             }
                         }
+
                         
-                        // Feeling
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
                             Text("How did you feel?")
                                 .bodyText()
                                 .foregroundColor(DesignTokens.Colors.textSecondary)
-                            
+
                             HStack(spacing: DesignTokens.Spacing.md) {
                                 ForEach(Feeling.allCases) { feelingOption in
                                     Button(action: {
@@ -152,8 +164,11 @@ struct ReflectionView: View {
                                     }) {
                                         Text(feelingOption.displayName)
                                             .pill(
-                                                backgroundColor: feeling == feelingOption ? Color(hex: feelingOption.color) : DesignTokens.Colors.border,
-                                                textColor: feeling == feelingOption ? .white : DesignTokens.Colors.textPrimary
+                                                backgroundColor: feeling == feelingOption
+                                                    ? Color(hex: feelingOption.color)
+                                                    : DesignTokens.Colors.border,
+                                                textColor: feeling == feelingOption
+                                                    ? .white : DesignTokens.Colors.textPrimary
                                             )
                                     }
                                 }
@@ -175,10 +190,10 @@ struct ReflectionView: View {
                     }
                     .foregroundColor(DesignTokens.Colors.danger)
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save Entry") {
-                        // Haptic feedback
+                        
                         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                         impactFeedback.impactOccurred()
                         saveEntry()
@@ -189,37 +204,37 @@ struct ReflectionView: View {
             }
         }
         .onAppear {
+            
+            let aiService = AIService.shared
+            let sentimentAnalysis = aiService.analyzeSentiment(transcript)
+            feeling = sentimentAnalysis.feeling
+
             counselorReply = generateCounselorReply()
             tags = extractTags(from: transcript)
         }
     }
+
     
-    // MARK: - Helper Methods
     private func generateCounselorReply() -> String {
-        // TODO: call local LLM or template OARS
-        let replies = [
-            "It sounds like you're processing some important thoughts. What stands out most to you about this experience?",
-            "I hear both challenge and resilience in your words. What might help you feel more supported right now?",
-            "Thank you for sharing this with me. What's one small step you could take toward feeling better about this?",
-            "Your awareness of these feelings is valuable. What would you like to explore further about this situation?"
-        ]
-        return replies.randomElement() ?? replies[0]
-    }
-    
-    private func extractTags(from text: String) -> [String] {
-        let commonTags = ["work", "family", "anxiety", "sleep", "exercise", "creativity", "stress", "joy", "reflection"]
-        let lowercasedText = text.lowercased()
         
-        return commonTags.filter { tag in
-            lowercasedText.contains(tag)
-        }
+        let aiService = AIService.shared
+        return aiService.generateCounselorReply(for: transcript, feeling: feeling)
     }
-    
+
+    private func extractTags(from text: String) -> [String] {
+        
+        let aiService = AIService.shared
+        return aiService.extractTags(from: text)
+    }
+
     private var suggestedTags: [String] {
-        let allTags = ["work", "family", "anxiety", "sleep", "exercise", "creativity", "stress", "joy", "reflection", "gratitude", "challenge", "growth"]
+        let allTags = [
+            "work", "family", "anxiety", "sleep", "exercise", "creativity", "stress", "joy",
+            "reflection", "gratitude", "challenge", "growth",
+        ]
         return Array(Set(allTags + tags)).sorted()
     }
-    
+
     private func toggleTag(_ tag: String) {
         if tags.contains(tag) {
             tags.removeAll { $0 == tag }
@@ -227,7 +242,7 @@ struct ReflectionView: View {
             tags.append(tag)
         }
     }
-    
+
     private func saveEntry() {
         let entry = Entry(
             title: generateTitle(from: transcript),
@@ -238,19 +253,19 @@ struct ReflectionView: View {
             valenceSeries: generateValenceSeries(),
             mode: appViewModel.mode
         )
-        
+
         appViewModel.addEntry(entry)
         isPresented = false
     }
-    
+
     private func generateTitle(from text: String) -> String {
         let words = text.components(separatedBy: .whitespacesAndNewlines)
         let firstWords = Array(words.prefix(6))
         return firstWords.joined(separator: " ") + (words.count > 6 ? "..." : "")
     }
-    
+
     private func generateValenceSeries() -> [Double] {
-        // Generate mock valence data based on feeling
+        
         let baseValence: Double
         switch feeling {
         case .calm:
@@ -260,17 +275,18 @@ struct ReflectionView: View {
         case .neutral:
             baseValence = 0.5
         }
-        
+
         return (0..<6).map { _ in
             baseValence + Double.random(in: -0.2...0.2)
         }.map { max(0, min(1, $0)) }
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     ReflectionView(
-        transcript: "I'm feeling a bit overwhelmed today. Work has been really busy and I haven't had much time for myself. I think I need to set better boundaries.",
+        transcript:
+            "I'm feeling a bit overwhelmed today. Work has been really busy and I haven't had much time for myself. I think I need to set better boundaries.",
         appViewModel: AppViewModel(),
         isPresented: .constant(true)
     )

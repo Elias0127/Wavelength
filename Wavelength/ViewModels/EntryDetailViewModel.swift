@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-// MARK: - Entry Detail View Model
+
 @MainActor
 class EntryDetailViewModel: ObservableObject {
     @Published var entry: Entry
@@ -16,7 +16,7 @@ class EntryDetailViewModel: ObservableObject {
         self.onDelete = onDelete
     }
     
-    // MARK: - Actions
+    
     func toggleFavorite() {
         entry.favorite.toggle()
         onUpdate(entry)
@@ -30,7 +30,7 @@ class EntryDetailViewModel: ObservableObject {
         showDeleteConfirmation = true
     }
     
-    // MARK: - Computed Properties
+    
     var hasCounselorReply: Bool {
         entry.counselorReply != nil && !entry.counselorReply!.isEmpty
     }

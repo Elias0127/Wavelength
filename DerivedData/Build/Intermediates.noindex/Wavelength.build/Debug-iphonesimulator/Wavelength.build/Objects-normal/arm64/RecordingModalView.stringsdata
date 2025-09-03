@@ -1,0 +1,112 @@
+{
+  "source": "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/Views/RecordingModalView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Microphone Permission Required",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Voice Journal",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "Listening...",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ready to listen",
+        "location": {
+          "startingColumn": 79,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stop & Continue",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start Recording",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 159
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your words are processed locally and never leave your device",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Speak naturally about what's on your mind",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 211
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 230
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 233
+        }
+      },
+      {
+        "comment": "",
+        "key": "Wavelength needs microphone access to record your voice. Please enable it in Settings.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 235
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,32 @@
+{
+  "source": "/Users/eliaswoldie/Dev/projects/Wavelength/Wavelength/DesignSystem/Components/TalkButton.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Start voice recording",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap and hold to record your thoughts",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Talk",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 20
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Journal View
+
 struct JournalView: View {
     @ObservedObject var appViewModel: AppViewModel
     @StateObject private var journalViewModel: JournalViewModel
@@ -30,7 +30,7 @@ struct JournalView: View {
         }
     }
     
-    // MARK: - Background
+    
     private var journalBackground: some View {
         VStack(spacing: 0) {
             Rectangle()
@@ -55,7 +55,7 @@ struct JournalView: View {
         )
     }
     
-    // MARK: - Main Content
+    
     private var mainContent: some View {
         VStack(spacing: 0) {
             journalHeader
@@ -63,7 +63,7 @@ struct JournalView: View {
         }
     }
     
-    // MARK: - Header
+    
     private var journalHeader: some View {
         VStack(spacing: DesignTokens.Spacing.lg) {
             searchBar
@@ -163,7 +163,7 @@ struct JournalView: View {
         }
     }
     
-    // MARK: - Entries
+    
     @ViewBuilder
     private var journalEntries: some View {
         if journalViewModel.filteredEntries.isEmpty {
@@ -180,7 +180,7 @@ struct JournalView: View {
             message: "Start your first entry by tapping the Talk button on the Home screen.",
             actionTitle: "Start Journaling"
         ) {
-            // TODO: Navigate to Home tab
+            
         }
     }
     
@@ -223,7 +223,7 @@ struct JournalView: View {
         .padding(.horizontal, DesignTokens.Spacing.lg)
     }
     
-    // MARK: - Computed Properties
+    
     private var groupedEntries: [(Date, [Entry])] {
         let calendar = Calendar.current
         let grouped = Dictionary(grouping: journalViewModel.filteredEntries) { entry in
@@ -250,7 +250,7 @@ struct JournalView: View {
     }
 }
 
-// MARK: - Preview
+
 #Preview {
     JournalView(appViewModel: AppViewModel())
 }
