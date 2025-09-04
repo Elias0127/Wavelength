@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { openaiRoutes } from "./openai/realtime-session";
-import { humeRoutes } from "./hume/token";
 
 
 dotenv.config();
@@ -30,7 +29,6 @@ app.get("/health", (req, res) => {
 
 
 app.use("/api/openai", openaiRoutes);
-app.use("/api/hume", humeRoutes);
 
 
 app.use(
@@ -58,9 +56,8 @@ app.use("*", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Wavelength API server running on port ${PORT}`);
-  console.log(`📝 Health check: http:
+  console.log(`📝 Health check: http://localhost:${PORT}/health`);
   console.log(
-    `🔗 OpenAI Realtime: http:
+    `🔗 OpenAI Realtime: http://localhost:${PORT}/api/openai/realtime/session`
   );
-  console.log(`🎭 Hume Token: http:
 });

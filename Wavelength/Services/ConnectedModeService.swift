@@ -21,14 +21,13 @@ class ConnectedModeService: ObservableObject {
     private var audioSession: AVAudioSession?
 
     private var openaiWebSocket: URLSessionWebSocketTask?
-    private var humeWebSocket: URLSessionWebSocketTask?
+    private let aiService = AIService.shared
 
     enum WebSocketState {
         case idle, connecting, open, closing, closed
     }
 
     private var openaiState: WebSocketState = .idle
-    private var humeState: WebSocketState = .idle
 
     // Audio batching
     private var audioBuffer = Data()
@@ -38,8 +37,6 @@ class ConnectedModeService: ObservableObject {
     private var silenceTimer: Timer?
     private var stabilityTimer: Timer?
     private var emotionUpdateTimer: Timer?
-    private var humePingTimer: Timer?
-    private var humeReconnectTimer: Timer?
 
     private var lastPartialText = ""
     private var lastPartialUpdate = Date()
@@ -51,7 +48,6 @@ class ConnectedModeService: ObservableObject {
     // MARK: - Configuration
     private let apiBaseURL = "http://10.0.0.188:3000"
     private let openaiSessionURL = "http://10.0.0.188:3000/api/openai/realtime/session"
-    private let humeTokenURL = "http://10.0.0.188:3000/api/hume/token"
 
     // MARK: - Initialization
     init() {
@@ -72,13 +68,11 @@ class ConnectedModeService: ObservableObject {
             conversationState = .listening
             errorMessage = nil
 
-            // Get tokens from backend
+            // Get OpenAI token from backend
             let openaiToken = try await getOpenAIToken()
-            let humeToken = try await getHumeToken()
 
-            // Initialize connections
+            // Initialize OpenAI connection
             try await setupOpenAIConnection(token: openaiToken)
-            try await setupHumeConnection(token: humeToken.token)
 
             // Start audio capture
             try startAudioCapture()
@@ -136,63 +130,6 @@ class ConnectedModeService: ObservableObject {
         }
     }
 
-    private func startHumePing() {
-        // Send ping every 30 seconds to keep connection alive
-        humePingTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) {
-            [weak self] _ in
-            guard let self = self, self.humeState == .open else { return }
-
-            self.humeWebSocket?.sendPing { error in
-                if let error = error {
-                    print("❌ Hume ping failed: \(error)")
-                    Task { @MainActor in
-                        self.humeState = .closed
-                        self.scheduleHumeReconnect()
-                    }
-                }
-            }
-        }
-    }
-
-    private func scheduleHumeReconnect() {
-        // Cancel any existing reconnect timer
-        humeReconnectTimer?.invalidate()
-
-        // Schedule reconnection after 2 seconds
-        humeReconnectTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {
-            [weak self] _ in
-            Task { @MainActor in
-                await self?.attemptHumeReconnect()
-            }
-        }
-    }
-
-    private func attemptHumeReconnect() async {
-        guard humeState == .closed else { return }
-
-        print("🔄 Attempting to reconnect Hume...")
-
-        do {
-            // Get a fresh token
-            let humeToken = try await getHumeToken()
-
-            // Try to reconnect
-            try await setupHumeConnection(token: humeToken.token)
-
-            print("✅ Hume reconnected successfully")
-            updateConnectionStatus()
-        } catch {
-            print("❌ Hume reconnection failed: \(error)")
-            // Schedule another attempt in 5 seconds
-            humeReconnectTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) {
-                [weak self] _ in
-                Task { @MainActor in
-                    await self?.attemptHumeReconnect()
-                }
-            }
-        }
-    }
-
     private func getOpenAIToken() async throws -> String {
         let url = URL(string: openaiSessionURL)!
         var request = URLRequest(url: url)
@@ -218,23 +155,6 @@ class ConnectedModeService: ObservableObject {
 
         let sessionResponse = try JSONDecoder().decode(OpenAISessionResponse.self, from: data)
         return sessionResponse.token
-    }
-
-    private func getHumeToken() async throws -> HumeTokenResponse {
-        let url = URL(string: humeTokenURL)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 200
-        else {
-            throw ConnectedModeError.networkError("Failed to get Hume token")
-        }
-
-        return try JSONDecoder().decode(HumeTokenResponse.self, from: data)
     }
 
     private func setupOpenAIConnection(token: String) async throws {
@@ -270,91 +190,6 @@ class ConnectedModeService: ObservableObject {
 
         print("🔗 OpenAI Realtime connection established")
         updateConnectionStatus()
-    }
-
-    private func setupHumeConnection(token: String) async throws {
-        // Create WebSocket URL for Hume Expression Measurement API
-        let wsURLString = "wss://api.hume.ai/v0/stream/models"
-        guard let wsURL = URL(string: wsURLString) else {
-            throw ConnectedModeError.websocketConnectionFailed("Invalid Hume WebSocket URL")
-        }
-
-        print("🔑 Setting up Hume connection with token: \(String(token.prefix(10)))...")
-
-        // Create WebSocket task with proper header authentication
-        var request = URLRequest(url: wsURL)
-        request.setValue(token, forHTTPHeaderField: "X-Hume-Api-Key")
-
-        // Configure URLSession for better WebSocket handling
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 30
-        config.timeoutIntervalForResource = 60
-        let session = URLSession(configuration: config)
-
-        humeState = .connecting
-        humeWebSocket = session.webSocketTask(with: request)
-        humeWebSocket?.resume()
-
-        // Start receiving prosody data
-        receiveHumeMessages()
-
-        // Wait for connection to be established with timeout
-        let connectionTimeout: TimeInterval = 3.0
-        let startTime = Date()
-
-        while humeState == .connecting && Date().timeIntervalSince(startTime) < connectionTimeout {
-            // Check WebSocket state
-            if let webSocket = humeWebSocket {
-                print("🔍 Hume WebSocket state: \(webSocket.state.rawValue)")
-                if webSocket.state == .running {
-                    humeState = .open
-                    print("✅ Hume WebSocket connection established")
-                    break
-                }
-            }
-            try await Task.sleep(nanoseconds: 100_000_000)  // 100ms
-        }
-
-        if humeState == .connecting {
-            humeState = .closed
-            throw ConnectedModeError.websocketConnectionFailed("Hume connection timeout")
-        }
-
-        // Start keep-alive ping only if connection is open
-        if humeState == .open {
-            startHumePing()
-            // Send initial configuration message
-            await sendHumeInitialConfig()
-        }
-
-        print("🎭 Hume connection established")
-        updateConnectionStatus()
-    }
-
-    private func sendHumeInitialConfig() async {
-        guard let webSocket = humeWebSocket else { return }
-
-        let configMessage: [String: Any] = [
-            "models": ["prosody"],
-            "stream_window_ms": 1500,
-            "raw_text": false,
-        ]
-
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: configMessage)
-            let message = URLSessionWebSocketTask.Message.string(
-                String(data: jsonData, encoding: .utf8) ?? "")
-
-            webSocket.send(message) { error in
-                if let error = error {
-                    print("❌ Failed to send Hume initial config: \(error)")
-                } else {
-                    print("✅ Hume initial configuration sent")
-                }
-            }
-        } catch {
-            print("❌ Failed to encode Hume initial config: \(error)")
-        }
     }
 
     private func sendOpenAISessionUpdate() async {
@@ -457,9 +292,9 @@ class ConnectedModeService: ObservableObject {
     private func sendBatchedAudio() async {
         guard !audioBuffer.isEmpty else { return }
 
-        // Check if both connections are still open before sending
-        guard humeState == .open || openaiState == .open else {
-            // Clear buffer if no connections are open
+        // Check if OpenAI connection is open before sending
+        guard openaiState == .open else {
+            // Clear buffer if connection is not open
             audioBuffer = Data()
             return
         }
@@ -480,8 +315,7 @@ class ConnectedModeService: ObservableObject {
             print("📊 Audio buffer size: \(currentBuffer.count) bytes")
         }
 
-        // Send to both services (individual guards will handle per-service state)
-        await sendAudioToHume(currentBuffer)
+        // Send to OpenAI only
         await sendAudioToOpenAI(currentBuffer)
     }
 
@@ -510,51 +344,6 @@ class ConnectedModeService: ObservableObject {
         }
 
         return resampledData
-    }
-
-    private func sendAudioToHume(_ audioData: Data) async {
-        guard humeState == .open, let webSocket = humeWebSocket else {
-            // Only log occasionally to avoid spam
-            if Int.random(in: 1...20) == 1 {
-                print("⚠️ Skipping Hume audio send - connection not ready (state: \(humeState))")
-            }
-            return  // Skip sending if not open
-        }
-
-        // Check if WebSocket is actually ready
-        guard webSocket.state == .running else {
-            print("⚠️ Hume WebSocket not in running state: \(webSocket.state)")
-            humeState = .closed
-            return
-        }
-
-        // Only log audio sends occasionally to avoid spam
-        if Int.random(in: 1...5) == 1 {
-            print("🎵 Sending audio to Hume (\(audioData.count) bytes)")
-        }
-
-        // Create proper Expression Measurement API format
-        let base64Audio = audioData.base64EncodedString()
-        let audioEvent: [String: Any] = [
-            "models": ["prosody"],
-            "stream_window_ms": 1500,
-            "raw_text": false,
-            "data": base64Audio,
-        ]
-
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: audioEvent)
-            let message = URLSessionWebSocketTask.Message.string(
-                String(data: jsonData, encoding: .utf8) ?? "")
-
-            webSocket.send(message) { error in
-                if let error = error {
-                    print("❌ Failed to send audio to Hume: \(error)")
-                }
-            }
-        } catch {
-            print("❌ Failed to encode audio event for Hume: \(error)")
-        }
     }
 
     private func sendAudioToOpenAI(_ audioData: Data) async {
@@ -601,54 +390,10 @@ class ConnectedModeService: ObservableObject {
                     self?.openaiState = .closed
                     print("🔌 OpenAI connection lost - stopping audio stream")
 
-                    // Stop audio capture immediately if all connections are lost
-                    if self?.humeState != .open {
-                        self?.stopAudioCapture()
-                    }
+                    // Stop audio capture when connection is lost
+                    self?.stopAudioCapture()
 
                     await self?.handleError(error)
-                }
-            }
-        }
-    }
-
-    private func receiveHumeMessages() {
-        humeWebSocket?.receive { [weak self] result in
-            switch result {
-            case .success(let message):
-                Task { @MainActor in
-                    // Set state to open on first successful message
-                    if self?.humeState == .connecting {
-                        self?.humeState = .open
-                        print("✅ Hume WebSocket connection confirmed")
-                    }
-                    await self?.handleHumeMessage(message)
-                    // Continue receiving
-                    self?.receiveHumeMessages()
-                }
-
-            case .failure(let error):
-                print("❌ Hume WebSocket error: \(error)")
-
-                // Log close code if available
-                if let wsError = error as? URLError {
-                    print(
-                        "🔍 Hume close details - Code: \(wsError.code.rawValue), LocalizedDescription: \(wsError.localizedDescription)"
-                    )
-                }
-
-                Task { @MainActor in
-                    self?.humeState = .closed
-                    self?.updateConnectionStatus()
-                    print("🔌 Hume connection lost - attempting reconnection")
-
-                    // Try to reconnect Hume after a short delay
-                    self?.scheduleHumeReconnect()
-
-                    // Only stop audio if both connections are lost
-                    if self?.openaiState != .open {
-                        self?.stopAudioCapture()
-                    }
                 }
             }
         }
@@ -663,6 +408,8 @@ class ConnectedModeService: ObservableObject {
 
                 if let transcript = json["transcript"] as? String {
                     await updateLiveCaption(transcript, isFinal: false)
+                    // Analyze emotion from partial transcript
+                    await analyzeTranscriptWithLocalAI(transcript)
                 }
 
                 if let finalTranscript = json["final_transcript"] as? String {
@@ -679,31 +426,37 @@ class ConnectedModeService: ObservableObject {
         }
     }
 
-    private func handleHumeMessage(_ message: URLSessionWebSocketTask.Message) async {
-        switch message {
-        case .string(let text):
-            if let data = text.data(using: .utf8),
-                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-            {
-                // Handle Expression Measurement API response format
-                if let predictions = json["predictions"] as? [[String: Any]],
-                    let firstPrediction = predictions.first,
-                    let prosody = firstPrediction["prosody"] as? [String: Any]
-                {
-                    await updateProsodyData(prosody)
-                }
-                // Fallback for direct prosody format
-                else if let prosody = json["prosody"] as? [String: Any] {
-                    await updateProsodyData(prosody)
-                }
-            }
+    private func analyzeTranscriptWithLocalAI(_ transcript: String) async {
+        // Only analyze non-empty transcripts
+        guard !transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
 
-        case .data(_):
-            break
+        // Use AIService to analyze emotion
+        let sentimentAnalysis = aiService.analyzeSentiment(transcript)
 
-        @unknown default:
-            break
-        }
+        // Map AIService results to EmotionStripState
+        await updateEmotionDataFromLocalAI(
+            arousal: sentimentAnalysis.sentimentScore,  // Use sentiment as arousal proxy
+            valence: sentimentAnalysis.valenceSeries.first ?? 0.5,  // Use first valence value
+            energy: sentimentAnalysis.sentimentScore  // Use sentiment as energy proxy
+        )
+    }
+
+    private func updateEmotionDataFromLocalAI(arousal: Double, valence: Double, energy: Double)
+        async
+    {
+        // Update emotion strip state with local AI analysis
+        emotionStripState = EmotionStripState(
+            arousal: max(0.0, min(1.0, arousal)),
+            valence: max(-1.0, min(1.0, (valence - 0.5) * 2)),  // Convert 0-1 to -1 to 1
+            energy: max(0.0, min(1.0, energy)),
+            trend: calculateTrend(arousal: arousal, valence: valence, energy: energy),
+            lastUpdate: Date()
+        )
+    }
+
+    private func calculateTrend(arousal: Double, valence: Double, energy: Double) -> EmotionTrend {
+        // Simple trend calculation - could be enhanced with historical data
+        return .stable
     }
 
     private func updateLiveCaption(_ text: String, isFinal: Bool) async {
@@ -727,34 +480,9 @@ class ConnectedModeService: ObservableObject {
         }
     }
 
-    private func updateProsodyData(_ prosody: [String: Any]) async {
-        let arousal = prosody["arousal"] as? Double ?? 0.5
-        let valence = prosody["valence"] as? Double ?? 0.0
-        let energy = prosody["energy"] as? Double ?? 0.5
-        let events = prosody["events"] as? [String] ?? []
-
-        let newProsody = ProsodyData(
-            arousal: arousal, valence: valence, energy: energy, events: events)
-
-        // Update emotion strip state
-        emotionStripState = EmotionStripState(
-            arousal: newProsody.arousal,
-            valence: newProsody.valence,
-            energy: newProsody.energy,
-            trend: calculateTrend(newProsody),
-            lastUpdate: Date()
-        )
-    }
-
     private func updateEmotionStrip() {
         // Smooth updates to avoid flicker
         // This runs at 4 Hz from the timer
-    }
-
-    private func calculateTrend(_ prosody: ProsodyData) -> EmotionTrend {
-        // Simple trend calculation based on recent values
-        // TODO: Implement proper trend analysis
-        return .stable
     }
 
     private func calculateSpeakingRate(wordCount: Int) -> Double {
@@ -788,13 +516,16 @@ class ConnectedModeService: ObservableObject {
     private func finalizeTurn(_ transcript: String) async {
         conversationState = .analyzing
 
-        // Create prosody snapshot
+        // Analyze final transcript with local AI
+        let sentimentAnalysis = aiService.analyzeSentiment(transcript)
+
+        // Create local emotion snapshot
         let prosodySnapshot = ProsodySnapshot(
             transcript: transcript,
             prosody: ProsodyData(
-                arousal: emotionStripState.arousal,
-                valence: emotionStripState.valence,
-                energy: emotionStripState.energy,
+                arousal: sentimentAnalysis.sentimentScore,
+                valence: sentimentAnalysis.valenceSeries.first ?? 0.5,
+                energy: sentimentAnalysis.sentimentScore,
                 events: []
             )
         )
@@ -833,8 +564,7 @@ class ConnectedModeService: ObservableObject {
 
     private func updateConnectionStatus() {
         let openaiStatus = openaiState == .open ? "OpenAI ✅" : "OpenAI ❌"
-        let humeStatus = humeState == .open ? "Hume ✅" : "Hume ❌"
-        connectionStatus = "\(openaiStatus) | \(humeStatus)"
+        connectionStatus = "\(openaiStatus) | Local AI ✅"
     }
 
     private func handleError(_ error: Error) async {
@@ -849,12 +579,9 @@ class ConnectedModeService: ObservableObject {
         silenceTimer?.invalidate()
         stabilityTimer?.invalidate()
         emotionUpdateTimer?.invalidate()
-        humePingTimer?.invalidate()
-        humeReconnectTimer?.invalidate()
 
         // Close WebSocket connections
         openaiWebSocket?.cancel(with: .normalClosure, reason: nil)
-        humeWebSocket?.cancel(with: .normalClosure, reason: nil)
 
         // Stop audio capture
         inputNode?.removeTap(onBus: 0)
@@ -862,13 +589,11 @@ class ConnectedModeService: ObservableObject {
 
         // Reset state
         openaiWebSocket = nil
-        humeWebSocket = nil
         audioEngine = nil
         inputNode = nil
 
         // Reset connection states
         openaiState = .idle
-        humeState = .idle
 
         // Clear audio buffer
         audioBuffer = Data()

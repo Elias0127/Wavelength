@@ -7,16 +7,6 @@ struct OpenAISessionResponse: Codable, Equatable {
     let sessionId: String
 }
 
-struct HumeTokenResponse: Codable, Equatable {
-    let token: String
-    let config: HumeConfig
-}
-
-struct HumeConfig: Codable, Equatable {
-    let sampleRate: Int
-    let chunkMs: Int
-}
-
 // MARK: - Prosody Models
 
 struct ProsodySnapshot: Codable, Equatable {
@@ -112,7 +102,7 @@ struct AudioConfig {
     static let bitDepth: Int = 16
     static let silenceThreshold: TimeInterval = 0.5  // 500ms
     static let stabilityThreshold: TimeInterval = 0.4  // 400ms
-    static let chunkDuration: TimeInterval = 1.5  // 1.5 seconds for Hume
+    static let chunkDuration: TimeInterval = 0.5  // 0.5 seconds for OpenAI
 }
 
 // MARK: - UI State Models
