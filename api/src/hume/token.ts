@@ -55,9 +55,9 @@ router.get("/config", (req, res) => {
   const config = {
     sampleRate: 16000,
     chunkMs: 1500,
-    websocketUrl: "wss://api.hume.ai/v0/evi/chat",
+    websocketUrl: "wss://api.hume.ai/v0/stream/models",
     supportedFeatures: ["prosody", "expression_measurement"],
-    updateFrequency: 4, 
+    updateFrequency: 4,
   };
 
   res.json(config);
