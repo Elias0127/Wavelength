@@ -63,12 +63,56 @@ struct JournalView: View {
 
     private var journalHeader: some View {
         VStack(spacing: DesignTokens.Spacing.lg) {
+            modeToggle
             searchBar
             filterControls
             expandableFilters
         }
         .padding(.vertical, DesignTokens.Spacing.md)
         .background(DesignTokens.Colors.surface)
+    }
+
+    private var modeToggle: some View {
+        HStack(spacing: 0) {
+            ForEach(JournalViewModel.JournalMode.allCases, id: \.self) { mode in
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        journalViewModel.selectedMode = mode
+                    }
+                }) {
+                    HStack(spacing: DesignTokens.Spacing.xs) {
+                        Image(systemName: mode.icon)
+                            .font(.system(size: 14, weight: .medium))
+
+                        Text(mode.displayName)
+                            .font(.system(size: 14, weight: .medium))
+                    }
+                    .foregroundColor(
+                        journalViewModel.selectedMode == mode
+                            ? .white : DesignTokens.Colors.textPrimary
+                    )
+                    .padding(.horizontal, DesignTokens.Spacing.md)
+                    .padding(.vertical, DesignTokens.Spacing.sm)
+                    .background(
+                        RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
+                            .fill(
+                                journalViewModel.selectedMode == mode
+                                    ? DesignTokens.Colors.primary : DesignTokens.Colors.card)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
+                            .stroke(
+                                journalViewModel.selectedMode == mode
+                                    ? DesignTokens.Colors.primary
+                                    : DesignTokens.Colors.border.opacity(0.3),
+                                lineWidth: 1
+                            )
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
+        .padding(.horizontal, DesignTokens.Spacing.lg)
     }
 
     private var searchBar: some View {
@@ -131,7 +175,9 @@ struct JournalView: View {
 
     @ViewBuilder
     private var clearButton: some View {
-        if !journalViewModel.searchText.isEmpty || !journalViewModel.selectedTags.isEmpty {
+        if !journalViewModel.searchText.isEmpty || !journalViewModel.selectedTags.isEmpty
+            || journalViewModel.selectedMode != .all
+        {
             Button("Clear") {
                 journalViewModel.clearFilters()
             }
@@ -170,13 +216,34 @@ struct JournalView: View {
     }
 
     private var emptyState: some View {
-        EmptyState(
-            icon: "book.closed",
-            title: "Your journal is empty",
-            message: "Start your first entry by tapping the Talk button on the Home screen.",
+        let (icon, title, message) = emptyStateContent
+        return EmptyState(
+            icon: icon,
+            title: title,
+            message: message,
             actionTitle: "Start Journaling"
         ) {
 
+        }
+    }
+
+    private var emptyStateContent: (String, String, String) {
+        switch journalViewModel.selectedMode {
+        case .all:
+            return (
+                "book.closed", "Your journal is empty",
+                "Start your first entry by tapping the Talk button on the Home screen."
+            )
+        case .privateMode:
+            return (
+                "person.circle", "No private entries yet",
+                "Create your first private journal entry by tapping the Talk button on the Home screen."
+            )
+        case .connectedMode:
+            return (
+                "brain.head.profile", "No AI conversations yet",
+                "Have a conversation with the AI in Connected Mode and save it as a journal entry."
+            )
         }
     }
 
