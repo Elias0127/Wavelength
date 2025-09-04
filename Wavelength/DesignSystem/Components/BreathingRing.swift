@@ -1,147 +1,235 @@
 import SwiftUI
 
-// MARK: - Breathing Ring Component
+// MARK: - Enhanced Breathing Ring Component
 struct BreathingRing: View {
-    let intensity: Double // 0.0 to 1.0
+    let intensity: Double
     let isAnimating: Bool
-    let content: () -> AnyView
+    let mode: Mode
+    let action: () -> Void
     
-    @State private var scale: CGFloat = 1.0
-    @State private var opacity: Double = 0.6
-    @State private var rotation: Double = 0.0
-    @State private var pulseScale: CGFloat = 1.0
-    
-    init(intensity: Double = 0.5, isAnimating: Bool = true, @ViewBuilder content: @escaping () -> some View) {
-        self.intensity = intensity
-        self.isAnimating = isAnimating
-        self.content = { AnyView(content()) }
-    }
+    @State private var breathingScale: CGFloat = 1.0
+    @State private var rotationAngle: Double = 0
+    @State private var glowOpacity: Double = 0.3
     
     var body: some View {
         ZStack {
-            // Multiple concentric rings for depth
-            ForEach(0..<4, id: \.self) { index in
+            // Immersive Background Effects
+            if mode == .connected {
+                // Connected Mode: Advanced AI Visualization
+                ZStack {
+                    // Neural Network Pattern
+                    ForEach(0..<8, id: \.self) { index in
+                        Circle()
+                            .stroke(
+                                DesignTokens.Colors.connectedMode.opacity(0.1),
+                                lineWidth: 1
+                            )
+                            .frame(width: 200 + CGFloat(index * 40), height: 200 + CGFloat(index * 40))
+                            .rotationEffect(.degrees(rotationAngle + Double(index * 45)))
+                            .animation(
+                                .linear(duration: 20)
+                                .repeatForever(autoreverses: false),
+                                value: rotationAngle
+                            )
+                    }
+                    
+                    // Floating Particles
+                    ForEach(0..<12, id: \.self) { index in
+                        Circle()
+                            .fill(DesignTokens.Colors.connectedMode.opacity(0.3))
+                            .frame(width: 4, height: 4)
+                            .offset(
+                                x: CGFloat(cos(Double(index) * .pi / 6)) * 120,
+                                y: CGFloat(sin(Double(index) * .pi / 6)) * 120
+                            )
+                            .scaleEffect(breathingScale)
+                            .opacity(glowOpacity)
+                            .animation(
+                                .easeInOut(duration: 3)
+                                .repeatForever(autoreverses: true)
+                                .delay(Double(index) * 0.2),
+                                value: breathingScale
+                            )
+                    }
+                }
+            } else {
+                // Private Mode: Calming Privacy Visualization
+                ZStack {
+                    // Privacy Shield Pattern
+                    ForEach(0..<6, id: \.self) { index in
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(
+                                DesignTokens.Colors.privateMode.opacity(0.15),
+                                lineWidth: 2
+                            )
+                            .frame(width: 180 + CGFloat(index * 30), height: 180 + CGFloat(index * 30))
+                            .rotationEffect(.degrees(rotationAngle + Double(index * 30)))
+                            .animation(
+                                .linear(duration: 30)
+                                .repeatForever(autoreverses: false),
+                                value: rotationAngle
+                            )
+                    }
+                    
+                    // Privacy Lock Icons
+                    ForEach(0..<4, id: \.self) { index in
+                        Image(systemName: "lock.shield")
+                            .font(.system(size: 16))
+                            .foregroundColor(DesignTokens.Colors.privateMode.opacity(0.4))
+                            .offset(
+                                x: CGFloat(cos(Double(index) * .pi / 2)) * 100,
+                                y: CGFloat(sin(Double(index) * .pi / 2)) * 100
+                            )
+                            .scaleEffect(breathingScale)
+                            .opacity(glowOpacity)
+                            .animation(
+                                .easeInOut(duration: 4)
+                                .repeatForever(autoreverses: true)
+                                .delay(Double(index) * 0.5),
+                                value: breathingScale
+                            )
+                    }
+                }
+            }
+            
+            // Main Breathing Ring
+            ZStack {
+                // Outer Ring
                 Circle()
                     .stroke(
-                        LinearGradient(
-                            colors: [
-                                DesignTokens.Colors.primary.opacity(0.4 - Double(index) * 0.1),
-                                DesignTokens.Colors.primary.opacity(0.2 - Double(index) * 0.05)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: CGFloat(3 - index)
+                        mode == .privateMode ? 
+                            DesignTokens.Colors.privateMode.opacity(0.3) : 
+                            DesignTokens.Colors.connectedMode.opacity(0.3),
+                        lineWidth: 3
                     )
-                    .frame(width: 200 - CGFloat(index * 20), height: 200 - CGFloat(index * 20))
-                    .scaleEffect(scale * (1.0 - CGFloat(index) * 0.1))
-                    .opacity(opacity * (1.0 - Double(index) * 0.2))
-                    .rotationEffect(.degrees(rotation * Double(index + 1) * 0.5))
+                    .frame(width: 200, height: 200)
+                    .scaleEffect(breathingScale)
+                    .animation(
+                        .easeInOut(duration: 4)
+                        .repeatForever(autoreverses: true),
+                        value: breathingScale
+                    )
+                
+                // Middle Ring
+                Circle()
+                    .stroke(
+                        mode == .privateMode ? 
+                            DesignTokens.Colors.privateMode.opacity(0.5) : 
+                            DesignTokens.Colors.connectedMode.opacity(0.5),
+                        lineWidth: 2
+                    )
+                    .frame(width: 160, height: 160)
+                    .scaleEffect(breathingScale * 0.8)
+                    .animation(
+                        .easeInOut(duration: 4)
+                        .repeatForever(autoreverses: true)
+                        .delay(0.5),
+                        value: breathingScale
+                    )
+                
+                // Inner Ring
+                Circle()
+                    .stroke(
+                        mode == .privateMode ? 
+                            DesignTokens.Colors.privateMode.opacity(0.7) : 
+                            DesignTokens.Colors.connectedMode.opacity(0.7),
+                        lineWidth: 1
+                    )
+                    .frame(width: 120, height: 120)
+                    .scaleEffect(breathingScale * 0.6)
+                    .animation(
+                        .easeInOut(duration: 4)
+                        .repeatForever(autoreverses: true)
+                        .delay(1.0),
+                        value: breathingScale
+                    )
+                
+                // Center Action Button
+                TalkButton(action: action, mode: mode)
             }
-            
-            // Pulsing center ring
-            Circle()
-                .stroke(
-                    DesignTokens.Colors.primary.opacity(0.6),
-                    lineWidth: 2
-                )
-                .frame(width: 120, height: 120)
-                .scaleEffect(pulseScale)
-                .opacity(opacity * 0.8)
-            
-            // Content with subtle breathing effect
-            content()
-                .scaleEffect(1.0 + (intensity * 0.05))
-                .opacity(0.9 + (intensity * 0.1))
         }
         .onAppear {
-            if isAnimating {
-                startBreathingAnimation()
-            }
-        }
-        .onChange(of: isAnimating) {
-            if isAnimating {
-                startBreathingAnimation()
-            } else {
-                stopBreathingAnimation()
-            }
-        }
-        .onChange(of: intensity) {
-            // Adjust animation based on intensity changes
-            if isAnimating {
-                updateAnimationForIntensity(intensity)
-            }
+            startBreathingAnimation()
         }
     }
     
     private func startBreathingAnimation() {
-        let baseDuration = 3.0 + (1.0 - intensity) * 2.0 // Slower for higher intensity
-        let rotationDuration = 20.0 // Slow rotation
-        
-        // Main breathing animation
-        withAnimation(
-            .easeInOut(duration: baseDuration)
-            .repeatForever(autoreverses: true)
-        ) {
-            scale = 1.0 + (intensity * 0.3)
-            opacity = 0.2 + (intensity * 0.4)
-        }
-        
-        // Rotation animation
-        withAnimation(
-            .linear(duration: rotationDuration)
-            .repeatForever(autoreverses: false)
-        ) {
-            rotation = 360.0
-        }
-        
-        // Pulse animation
-        withAnimation(
-            .easeInOut(duration: baseDuration * 0.7)
-            .repeatForever(autoreverses: true)
-        ) {
-            pulseScale = 1.0 + (intensity * 0.2)
-        }
+        breathingScale = 1.2
+        rotationAngle = 360
+        glowOpacity = 0.7
     }
+}
+
+struct LegacyBreathingRing: View {
+    let intensity: Double
+    let isAnimating: Bool
+    let action: () -> Void
     
-    private func stopBreathingAnimation() {
-        withAnimation(.easeOut(duration: 0.8)) {
-            scale = 1.0
-            opacity = 0.3
-            rotation = 0.0
-            pulseScale = 1.0
-        }
-    }
+    @State private var breathingScale: CGFloat = 1.0
     
-    private func updateAnimationForIntensity(_ newIntensity: Double) {
-        let baseDuration = 3.0 + (1.0 - newIntensity) * 2.0
-        
-        withAnimation(
-            .easeInOut(duration: baseDuration)
-            .repeatForever(autoreverses: true)
-        ) {
-            scale = 1.0 + (newIntensity * 0.3)
-            opacity = 0.2 + (newIntensity * 0.4)
+    var body: some View {
+        ZStack {
+            // Outer Ring
+            Circle()
+                .stroke(DesignTokens.Colors.primary.opacity(0.3), lineWidth: 3)
+                .frame(width: 200, height: 200)
+                .scaleEffect(breathingScale)
+                .animation(
+                    .easeInOut(duration: 4)
+                    .repeatForever(autoreverses: true),
+                    value: breathingScale
+                )
+            
+            // Middle Ring
+            Circle()
+                .stroke(DesignTokens.Colors.primary.opacity(0.5), lineWidth: 2)
+                .frame(width: 160, height: 160)
+                .scaleEffect(breathingScale * 0.8)
+                .animation(
+                    .easeInOut(duration: 4)
+                    .repeatForever(autoreverses: true)
+                    .delay(0.5),
+                    value: breathingScale
+                )
+            
+            // Inner Ring
+            Circle()
+                .stroke(DesignTokens.Colors.primary.opacity(0.7), lineWidth: 1)
+                .frame(width: 120, height: 120)
+                .scaleEffect(breathingScale * 0.6)
+                .animation(
+                    .easeInOut(duration: 4)
+                    .repeatForever(autoreverses: true)
+                    .delay(1.0),
+                    value: breathingScale
+                )
+            
+            // Center Action Button
+            LegacyTalkButton(action: action)
         }
-        
-        withAnimation(
-            .easeInOut(duration: baseDuration * 0.7)
-            .repeatForever(autoreverses: true)
-        ) {
-            pulseScale = 1.0 + (newIntensity * 0.2)
+        .onAppear {
+            breathingScale = 1.2
         }
     }
 }
 
 // MARK: - Preview
 #Preview {
-    VStack(spacing: DesignTokens.Spacing.xl) {
-        BreathingRing(intensity: 0.3, isAnimating: true) {
-            TalkButton(action: {})
+    VStack(spacing: DesignTokens.Spacing.xxxl) {
+        BreathingRing(
+            intensity: 0.7,
+            isAnimating: true,
+            mode: .privateMode
+        ) {
+            print("Private mode action")
         }
         
-        BreathingRing(intensity: 0.7, isAnimating: true) {
-            TalkButton(action: {})
+        BreathingRing(
+            intensity: 0.7,
+            isAnimating: true,
+            mode: .connected
+        ) {
+            print("Connected mode action")
         }
     }
     .padding()

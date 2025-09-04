@@ -68,6 +68,11 @@ class AppViewModel: ObservableObject {
         hasCompletedOnboarding = true
     }
     
+    func resetOnboarding() {
+        dataService.resetOnboarding()
+        hasCompletedOnboarding = false
+    }
+    
     func refreshPrompt() {
         dataService.refreshPrompt()
         currentPrompt = dataService.currentPrompt

@@ -7,7 +7,7 @@ struct RecordingModalView: View {
     @State private var showPermissionAlert = false
     @State private var recordingPulse = false
     @State private var waveAnimation = false
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -15,16 +15,16 @@ struct RecordingModalView: View {
                 LinearGradient(
                     colors: [
                         DesignTokens.Colors.surface,
-                        DesignTokens.Colors.card.opacity(0.3)
+                        DesignTokens.Colors.card.opacity(0.3),
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
-                
+
                 VStack(spacing: DesignTokens.Spacing.xxxl) {
                     Spacer()
-                    
+
                     // Recording indicator with enhanced animations
                     VStack(spacing: DesignTokens.Spacing.xl) {
                         ZStack {
@@ -33,59 +33,77 @@ struct RecordingModalView: View {
                                 ForEach(0..<3, id: \.self) { index in
                                     Circle()
                                         .stroke(
-                                            DesignTokens.Colors.primary.opacity(0.3 - Double(index) * 0.1),
+                                            DesignTokens.Colors.primary.opacity(
+                                                0.3 - Double(index) * 0.1),
                                             lineWidth: 2
                                         )
-                                        .frame(width: 200 + CGFloat(index * 40), height: 200 + CGFloat(index * 40))
+                                        .frame(
+                                            width: 200 + CGFloat(index * 40),
+                                            height: 200 + CGFloat(index * 40)
+                                        )
                                         .scaleEffect(recordingPulse ? 1.2 : 0.8)
                                         .opacity(recordingPulse ? 0.0 : 1.0)
                                         .animation(
                                             .easeInOut(duration: 1.5)
-                                            .repeatForever(autoreverses: false)
-                                            .delay(Double(index) * 0.3),
+                                                .repeatForever(autoreverses: false)
+                                                .delay(Double(index) * 0.3),
                                             value: recordingPulse
                                         )
                                 }
                             }
-                            
+
                             // Main breathing ring
-                            BreathingRing(
-                                intensity: homeViewModel.isRecording ? 0.9 : 0.5,
-                                isAnimating: true
-                            ) {
-                                ZStack {
-                                    // Microphone icon with wave animation
-                                    Image(systemName: "mic.fill")
-                                        .font(.system(size: 40, weight: .medium))
-                                        .foregroundColor(homeViewModel.isRecording ? .white : DesignTokens.Colors.primary)
-                                        .scaleEffect(homeViewModel.isRecording ? 1.1 : 1.0)
-                                        .animation(.easeInOut(duration: 0.5), value: homeViewModel.isRecording)
-                                    
-                                    // Recording indicator
-                                    if homeViewModel.isRecording {
-                                        Circle()
-                                            .fill(DesignTokens.Colors.danger)
-                                            .frame(width: 12, height: 12)
-                                            .offset(x: 25, y: -25)
-                                            .scaleEffect(recordingPulse ? 1.5 : 1.0)
-                                            .opacity(recordingPulse ? 0.0 : 1.0)
-                                            .animation(
-                                                .easeInOut(duration: 0.8)
+                            ZStack {
+                                // Microphone icon with wave animation
+                                Image(systemName: "mic.fill")
+                                    .font(.system(size: 40, weight: .medium))
+                                    .foregroundColor(
+                                        homeViewModel.isRecording
+                                            ? .white : DesignTokens.Colors.primary
+                                    )
+                                    .scaleEffect(homeViewModel.isRecording ? 1.1 : 1.0)
+                                    .animation(
+                                        .easeInOut(duration: 0.5), value: homeViewModel.isRecording)
+
+                                // Recording indicator
+                                if homeViewModel.isRecording {
+                                    Circle()
+                                        .fill(DesignTokens.Colors.danger)
+                                        .frame(width: 12, height: 12)
+                                        .offset(x: 25, y: -25)
+                                        .scaleEffect(recordingPulse ? 1.5 : 1.0)
+                                        .opacity(recordingPulse ? 0.0 : 1.0)
+                                        .animation(
+                                            .easeInOut(duration: 0.8)
                                                 .repeatForever(autoreverses: false),
-                                                value: recordingPulse
-                                            )
-                                    }
+                                            value: recordingPulse
+                                        )
                                 }
                             }
+                            .frame(width: 120, height: 120)
+                            .background(
+                                Circle()
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [
+                                                DesignTokens.Colors.primary,
+                                                DesignTokens.Colors.primary.opacity(0.8),
+                                            ],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                            )
+                            .shadow(color: DesignTokens.Shadows.button, radius: 8, x: 0, y: 4)
                         }
-                        
+
                         // Enhanced timer with better typography
                         VStack(spacing: DesignTokens.Spacing.sm) {
                             Text(homeViewModel.formattedDuration)
                                 .font(.system(size: 52, weight: .ultraLight, design: .monospaced))
                                 .foregroundColor(DesignTokens.Colors.textPrimary)
                                 .contentTransition(.numericText())
-                            
+
                             // Status text with animation
                             Text(homeViewModel.isRecording ? "Listening..." : "Ready to listen")
                                 .bodyText()
@@ -93,14 +111,14 @@ struct RecordingModalView: View {
                                 .opacity(waveAnimation ? 0.5 : 1.0)
                                 .animation(
                                     .easeInOut(duration: 1.0)
-                                    .repeatForever(autoreverses: true),
+                                        .repeatForever(autoreverses: true),
                                     value: waveAnimation
                                 )
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     // Enhanced action buttons
                     VStack(spacing: DesignTokens.Spacing.lg) {
                         if homeViewModel.isRecording {
@@ -128,18 +146,23 @@ struct RecordingModalView: View {
                                     RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
                                         .fill(
                                             LinearGradient(
-                                                colors: [DesignTokens.Colors.primary, DesignTokens.Colors.primary.opacity(0.8)],
+                                                colors: [
+                                                    DesignTokens.Colors.primary,
+                                                    DesignTokens.Colors.primary.opacity(0.8),
+                                                ],
                                                 startPoint: .leading,
                                                 endPoint: .trailing
                                             )
                                         )
-                                        .shadow(color: DesignTokens.Shadows.button, radius: 8, x: 0, y: 4)
+                                        .shadow(
+                                            color: DesignTokens.Shadows.button, radius: 8, x: 0,
+                                            y: 4)
                                 )
                             }
                             .scaleEffect(1.0)
                             .animation(.easeInOut(duration: 0.1), value: homeViewModel.isRecording)
                             .padding(.horizontal, DesignTokens.Spacing.xxxl)
-                            
+
                             // Cancel button
                             Button(action: {
                                 homeViewModel.cancelRecording()
@@ -170,12 +193,17 @@ struct RecordingModalView: View {
                                     RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
                                         .fill(
                                             LinearGradient(
-                                                colors: [DesignTokens.Colors.primary, DesignTokens.Colors.primary.opacity(0.8)],
+                                                colors: [
+                                                    DesignTokens.Colors.primary,
+                                                    DesignTokens.Colors.primary.opacity(0.8),
+                                                ],
                                                 startPoint: .leading,
                                                 endPoint: .trailing
                                             )
                                         )
-                                        .shadow(color: DesignTokens.Shadows.button, radius: 8, x: 0, y: 4)
+                                        .shadow(
+                                            color: DesignTokens.Shadows.button, radius: 8, x: 0,
+                                            y: 4)
                                 )
                             }
                             .scaleEffect(1.0)
@@ -183,21 +211,21 @@ struct RecordingModalView: View {
                             .padding(.horizontal, DesignTokens.Spacing.xxxl)
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     // Enhanced hint text with better visual hierarchy
                     VStack(spacing: DesignTokens.Spacing.md) {
                         HStack(spacing: DesignTokens.Spacing.sm) {
                             Image(systemName: "waveform")
                                 .foregroundColor(DesignTokens.Colors.primary)
                                 .font(.system(size: 14))
-                            
+
                             Text("Speak naturally about what's on your mind")
                                 .font(DesignTokens.Typography.caption)
                                 .foregroundColor(DesignTokens.Colors.textSecondary)
                         }
-                        
+
                         Text("Your words are processed locally and never leave your device")
                             .font(.system(size: 11, weight: .regular))
                             .foregroundColor(DesignTokens.Colors.textSecondary.opacity(0.6))
@@ -242,7 +270,9 @@ struct RecordingModalView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Wavelength needs microphone access to record your voice. Please enable it in Settings.")
+            Text(
+                "Wavelength needs microphone access to record your voice. Please enable it in Settings."
+            )
         }
     }
 }

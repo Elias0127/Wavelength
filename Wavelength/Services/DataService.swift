@@ -114,6 +114,11 @@ class DataService: ObservableObject {
         saveAppSettings()
     }
     
+    func resetOnboarding() {
+        hasCompletedOnboarding = false
+        saveAppSettings()
+    }
+    
     func refreshPrompt() {
         currentPrompt = MockEntries.randomPrompt()
         saveAppSettings()

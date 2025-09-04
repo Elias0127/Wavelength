@@ -1,52 +1,55 @@
 import SwiftUI
 
-
 struct SettingsView: View {
     @ObservedObject var appViewModel: AppViewModel
     @StateObject private var settingsViewModel: SettingsViewModel
     @State private var showShareSheet = false
-    
+
     init(appViewModel: AppViewModel) {
         self.appViewModel = appViewModel
-        self._settingsViewModel = StateObject(wrappedValue: SettingsViewModel(
-            onModeToggle: {
-                appViewModel.toggleMode()
-            },
-            onExportData: {
-                appViewModel.exportData()
-            },
-            onEraseData: {
-                appViewModel.eraseAllData()
-            }
-        ))
+        self._settingsViewModel = StateObject(
+            wrappedValue: SettingsViewModel(
+                onModeToggle: {
+                    appViewModel.toggleMode()
+                },
+                onExportData: {
+                    appViewModel.exportData()
+                },
+                onEraseData: {
+                    appViewModel.eraseAllData()
+                }
+            ))
     }
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Privacy Mode")
                             .h2()
-                        
+
                         VStack(spacing: DesignTokens.Spacing.md) {
                             HStack {
                                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
                                     Text(appViewModel.mode.displayName)
                                         .bodyText()
-                                    
+
                                     Text(appViewModel.mode.description)
                                         .captionText()
                                         .foregroundColor(DesignTokens.Colors.textSecondary)
                                 }
-                                
+
                                 Spacer()
-                                
-                                Toggle("", isOn: Binding(
-                                    get: { appViewModel.mode == .connected },
-                                    set: { _ in settingsViewModel.toggleMode() }
-                                ))
+
+                                Toggle(
+                                    "",
+                                    isOn: Binding(
+                                        get: { appViewModel.mode == .connected },
+                                        set: { _ in settingsViewModel.toggleMode() }
+                                    )
+                                )
                                 .tint(DesignTokens.Colors.primary)
                             }
                             .padding(DesignTokens.Spacing.lg)
@@ -58,12 +61,11 @@ struct SettingsView: View {
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
-                    
-                    
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Privacy & Data")
                             .h2()
-                        
+
                         VStack(spacing: DesignTokens.Spacing.sm) {
                             SettingsRow(
                                 icon: "square.and.arrow.up",
@@ -71,16 +73,26 @@ struct SettingsView: View {
                                 subtitle: "Download your journal entries",
                                 action: settingsViewModel.exportData
                             )
-                            
+
                             Divider()
                                 .background(DesignTokens.Colors.border)
-                            
+
                             SettingsRow(
                                 icon: "trash",
                                 title: "Erase All Data",
                                 subtitle: "Permanently delete all entries",
                                 action: settingsViewModel.eraseData,
                                 isDestructive: true
+                            )
+
+                            Divider()
+                                .background(DesignTokens.Colors.border)
+
+                            SettingsRow(
+                                icon: "arrow.clockwise",
+                                title: "Reset Onboarding",
+                                subtitle: "Show mode selection again",
+                                action: { appViewModel.resetOnboarding() }
                             )
                         }
                         .padding(DesignTokens.Spacing.lg)
@@ -91,17 +103,18 @@ struct SettingsView: View {
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
-                    
-                    
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Privacy Information")
                             .h2()
-                        
+
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
-                            Text("Your privacy is our priority. In Private Mode, all data stays on your device. In Connected Mode, only minimal audio features are processed externally.")
-                                .bodyText()
-                                .foregroundColor(DesignTokens.Colors.textSecondary)
-                            
+                            Text(
+                                "Your privacy is our priority. In Private Mode, all data stays on your device. In Connected Mode, only minimal audio features are processed externally."
+                            )
+                            .bodyText()
+                            .foregroundColor(DesignTokens.Colors.textSecondary)
+
                             Button(action: {
                                 settingsViewModel.showPrivacy()
                             }) {
@@ -117,17 +130,22 @@ struct SettingsView: View {
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
-                    
-                    
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Important Disclaimers")
                             .h2()
-                        
+
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
-                            Text("• Wavelength is not a substitute for professional therapy or medical advice")
-                            Text("• AI reflections are generated responses and should not be considered professional counseling")
-                            Text("• If you're experiencing a crisis, please contact emergency services or a mental health professional")
-                            
+                            Text(
+                                "• Wavelength is not a substitute for professional therapy or medical advice"
+                            )
+                            Text(
+                                "• AI reflections are generated responses and should not be considered professional counseling"
+                            )
+                            Text(
+                                "• If you're experiencing a crisis, please contact emergency services or a mental health professional"
+                            )
+
                             Button(action: {
                                 settingsViewModel.showCrisis()
                             }) {
@@ -145,16 +163,17 @@ struct SettingsView: View {
                     }
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
-                    
-                    
+
                     VStack(spacing: DesignTokens.Spacing.md) {
                         Text("Wavelength")
                             .h2()
-                        
-                        Text("Version \(settingsViewModel.appVersion) (\(settingsViewModel.buildNumber))")
-                            .captionText()
-                            .foregroundColor(DesignTokens.Colors.textSecondary)
-                        
+
+                        Text(
+                            "Version \(settingsViewModel.appVersion) (\(settingsViewModel.buildNumber))"
+                        )
+                        .captionText()
+                        .foregroundColor(DesignTokens.Colors.textSecondary)
+
                         Text("Voice-First Journaling Companion")
                             .captionText()
                             .foregroundColor(DesignTokens.Colors.textSecondary)
@@ -168,7 +187,7 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.large)
         }
         .sheet(isPresented: $settingsViewModel.showExportSheet) {
-            
+
             Text("Export functionality would be implemented here")
         }
         .alert("Erase All Data", isPresented: $settingsViewModel.showEraseConfirmation) {
@@ -177,7 +196,9 @@ struct SettingsView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This will permanently delete all your journal entries. This action cannot be undone.")
+            Text(
+                "This will permanently delete all your journal entries. This action cannot be undone."
+            )
         }
         .sheet(isPresented: $settingsViewModel.showPrivacySheet) {
             PrivacySheet()
@@ -188,42 +209,48 @@ struct SettingsView: View {
     }
 }
 
-
 struct SettingsRow: View {
     let icon: String
     let title: String
     let subtitle: String
     let action: () -> Void
     let isDestructive: Bool
-    
-    init(icon: String, title: String, subtitle: String, action: @escaping () -> Void, isDestructive: Bool = false) {
+
+    init(
+        icon: String, title: String, subtitle: String, action: @escaping () -> Void,
+        isDestructive: Bool = false
+    ) {
         self.icon = icon
         self.title = title
         self.subtitle = subtitle
         self.action = action
         self.isDestructive = isDestructive
     }
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: DesignTokens.Spacing.lg) {
                 Image(systemName: icon)
-                    .foregroundColor(isDestructive ? DesignTokens.Colors.danger : DesignTokens.Colors.primary)
+                    .foregroundColor(
+                        isDestructive ? DesignTokens.Colors.danger : DesignTokens.Colors.primary
+                    )
                     .font(.system(size: 20))
                     .frame(width: 24)
-                
+
                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
                     Text(title)
                         .bodyText()
-                        .foregroundColor(isDestructive ? DesignTokens.Colors.danger : DesignTokens.Colors.textPrimary)
-                    
+                        .foregroundColor(
+                            isDestructive
+                                ? DesignTokens.Colors.danger : DesignTokens.Colors.textPrimary)
+
                     Text(subtitle)
                         .captionText()
                         .foregroundColor(DesignTokens.Colors.textSecondary)
                 }
-                
+
                 Spacer()
-                
+
                 Image(systemName: "chevron.right")
                     .foregroundColor(DesignTokens.Colors.textSecondary)
                     .font(.system(size: 12))
@@ -233,24 +260,25 @@ struct SettingsRow: View {
     }
 }
 
-
 struct PrivacySheet: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                     Text("Privacy Policy")
                         .h1()
-                    
-                    Text("Your privacy is fundamental to Wavelength. Here's how we protect your data:")
-                        .bodyText()
-                    
+
+                    Text(
+                        "Your privacy is fundamental to Wavelength. Here's how we protect your data:"
+                    )
+                    .bodyText()
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
                         Text("Private Mode (Default)")
                             .h2()
-                        
+
                         Text("• All data stays on your device")
                         Text("• No internet connection required")
                         Text("• Speech-to-text processing happens locally")
@@ -258,11 +286,11 @@ struct PrivacySheet: View {
                     }
                     .bodyText()
                     .foregroundColor(DesignTokens.Colors.textSecondary)
-                    
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
                         Text("Connected Mode (Optional)")
                             .h2()
-                        
+
                         Text("• Only minimal audio features are processed externally")
                         Text("• Your transcripts and reflections remain local")
                         Text("• Enhanced empathy through prosody analysis")
@@ -287,43 +315,46 @@ struct PrivacySheet: View {
     }
 }
 
-
 struct CrisisResourcesSheet: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                     Text("Crisis Resources")
                         .h1()
-                    
-                    Text("If you're experiencing a mental health crisis, please reach out for help:")
-                        .bodyText()
-                    
+
+                    Text(
+                        "If you're experiencing a mental health crisis, please reach out for help:"
+                    )
+                    .bodyText()
+
                     VStack(spacing: DesignTokens.Spacing.lg) {
                         CrisisResourceCard(
                             title: "988 Suicide & Crisis Lifeline",
                             number: "988",
                             description: "24/7 crisis support in the US"
                         )
-                        
+
                         CrisisResourceCard(
                             title: "Crisis Text Line",
                             number: "Text HOME to 741741",
                             description: "24/7 crisis support via text"
                         )
-                        
+
                         CrisisResourceCard(
                             title: "Emergency Services",
                             number: "911",
                             description: "For immediate emergency assistance"
                         )
                     }
-                    
-                    Text("For international resources, please contact your local emergency services or mental health organizations.")
-                        .captionText()
-                        .foregroundColor(DesignTokens.Colors.textSecondary)
+
+                    Text(
+                        "For international resources, please contact your local emergency services or mental health organizations."
+                    )
+                    .captionText()
+                    .foregroundColor(DesignTokens.Colors.textSecondary)
                 }
                 .padding(DesignTokens.Spacing.lg)
             }
@@ -341,21 +372,20 @@ struct CrisisResourcesSheet: View {
     }
 }
 
-
 struct CrisisResourceCard: View {
     let title: String
     let number: String
     let description: String
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
             Text(title)
                 .h2()
-            
+
             Text(number)
                 .bodyText()
                 .foregroundColor(DesignTokens.Colors.primary)
-            
+
             Text(description)
                 .captionText()
                 .foregroundColor(DesignTokens.Colors.textSecondary)
@@ -364,7 +394,6 @@ struct CrisisResourceCard: View {
         .cardBackground()
     }
 }
-
 
 #Preview {
     SettingsView(appViewModel: AppViewModel())
