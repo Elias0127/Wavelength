@@ -2,6 +2,7 @@ import AVFoundation
 import SwiftUI
 
 struct ConnectedModeView: View {
+    @ObservedObject var appViewModel: AppViewModel
     @StateObject private var connectedModeService = ConnectedModeService()
     @Environment(\.dismiss) private var dismiss
     @State private var isAnimating = false
@@ -85,8 +86,7 @@ struct ConnectedModeView: View {
                 conversationTurns: connectedModeService.conversationTurns,
                 onSave: { entry in
                     // Save the entry to the journal
-                    // This would typically be handled by a data service
-                    print("Saving AI conversation entry: \(entry.title)")
+                    appViewModel.addEntry(entry)
                     showSaveConversationSheet = false
                     connectedModeService.stopConversation()
                     dismiss()
@@ -918,5 +918,5 @@ struct EmotionMetric: View {
 }
 
 #Preview {
-    ConnectedModeView()
+    ConnectedModeView(appViewModel: AppViewModel())
 }

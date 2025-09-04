@@ -79,10 +79,27 @@ class CoreDataManager: ObservableObject {
         valenceSeriesAttribute.isOptional = true
         valenceSeriesAttribute.valueTransformerName = "NSSecureUnarchiveFromData"
 
+        let isAIGeneratedAttribute = NSAttributeDescription()
+        isAIGeneratedAttribute.name = "isAIGenerated"
+        isAIGeneratedAttribute.attributeType = .booleanAttributeType
+        isAIGeneratedAttribute.isOptional = false
+        isAIGeneratedAttribute.defaultValue = false
+
+        let originalConversationTurnsDataAttribute = NSAttributeDescription()
+        originalConversationTurnsDataAttribute.name = "originalConversationTurnsData"
+        originalConversationTurnsDataAttribute.attributeType = .binaryDataAttributeType
+        originalConversationTurnsDataAttribute.isOptional = true
+
+        let emotionalStateAttribute = NSAttributeDescription()
+        emotionalStateAttribute.name = "emotionalState"
+        emotionalStateAttribute.attributeType = .stringAttributeType
+        emotionalStateAttribute.isOptional = true
+
         journalEntryEntity.properties = [
             idAttribute, dateAttribute, titleAttribute, transcriptAttribute,
             counselorReplyAttribute, feelingAttribute, modeAttribute,
             favoriteAttribute, tagsAttribute, valenceSeriesAttribute,
+            isAIGeneratedAttribute, originalConversationTurnsDataAttribute, emotionalStateAttribute,
         ]
 
         

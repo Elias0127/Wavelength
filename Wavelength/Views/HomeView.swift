@@ -184,7 +184,7 @@ struct HomeView: View {
             )
         }
         .sheet(isPresented: $showConnectedMode) {
-            ConnectedModeView()
+            ConnectedModeView(appViewModel: appViewModel)
         }
         .onChange(of: homeViewModel.showReflection) {
             if homeViewModel.showReflection {

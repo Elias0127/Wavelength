@@ -2,6 +2,20 @@ import CoreData
 import Foundation
 
 extension JournalEntry {
+    
+    var originalConversationTurns: [ConversationTurn]? {
+        get {
+            guard let data = originalConversationTurnsData else { return nil }
+            return try? JSONDecoder().decode([ConversationTurn].self, from: data)
+        }
+        set {
+            if let turns = newValue {
+                originalConversationTurnsData = try? JSONEncoder().encode(turns)
+            } else {
+                originalConversationTurnsData = nil
+            }
+        }
+    }
 
     func toEntry() -> Entry {
         return Entry(
@@ -15,9 +29,9 @@ extension JournalEntry {
             valenceSeries: self.valenceSeries ?? [],
             mode: Mode(rawValue: self.mode ?? "private") ?? .privateMode,
             favorite: self.favorite,
-            isAIGenerated: false,  
-            originalConversationTurns: nil,  
-            emotionalState: nil  
+            isAIGenerated: self.isAIGenerated,
+            originalConversationTurns: self.originalConversationTurns,
+            emotionalState: self.emotionalState
         )
     }
 
@@ -32,8 +46,9 @@ extension JournalEntry {
         self.valenceSeries = entry.valenceSeries
         self.mode = entry.mode.rawValue
         self.favorite = entry.favorite
-        
-        
+        self.isAIGenerated = entry.isAIGenerated
+        self.originalConversationTurns = entry.originalConversationTurns
+        self.emotionalState = entry.emotionalState
     }
 
     static func createFromEntry(_ entry: Entry, context: NSManagedObjectContext) -> JournalEntry {

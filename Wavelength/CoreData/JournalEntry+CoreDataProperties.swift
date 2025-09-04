@@ -17,5 +17,8 @@ extension JournalEntry {
     @NSManaged public var title: String?
     @NSManaged public var transcript: String?
     @NSManaged public var valenceSeries: [Double]?
+    @NSManaged public var isAIGenerated: Bool
+    @NSManaged public var originalConversationTurnsData: Data?
+    @NSManaged public var emotionalState: String?
 
 }
