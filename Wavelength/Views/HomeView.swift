@@ -68,17 +68,15 @@ struct HomeView: View {
                         ) {
                             let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
                             impactFeedback.impactOccurred()
-                            showRecordingModal = true
+
+                            // Mode-specific action
+                            if appViewModel.mode == .connected {
+                                showConnectedMode = true
+                            } else {
+                                showRecordingModal = true
+                            }
                         }
                         .padding(.vertical, DesignTokens.Spacing.xl)
-
-                        // Connected Mode Button (only show when in connected mode)
-                        if appViewModel.mode == .connected {
-                            ConnectedModeButton {
-                                showConnectedMode = true
-                            }
-                            .padding(.horizontal, DesignTokens.Spacing.lg)
-                        }
 
                         // Mode-specific Prompt Section
                         VStack(spacing: DesignTokens.Spacing.md) {

@@ -64,9 +64,6 @@ struct ConnectedModeView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            Task {
-                await connectedModeService.startConversation()
-            }
             startBreathingAnimation()
         }
         .onDisappear {
@@ -219,27 +216,15 @@ struct ConnectedModeView: View {
         }
     }
 
-    // MARK: - Floating Action Button
+    // MARK: - Immersive Action Button
 
     private var floatingActionButton: some View {
-        VStack(spacing: 16) {
-            // Kill switch (emergency stop)
-            if connectedModeService.conversationState != .idle {
-                Button(action: {
-                    connectedModeService.killSwitch()
-                }) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .frame(width: 50, height: 50)
-                        .background(Color.red)
-                        .clipShape(Circle())
-                        .shadow(color: .red.opacity(0.3), radius: 8, x: 0, y: 4)
-                }
-                .scaleEffect(isAnimating ? 1.05 : 1.0)
-                .animation(
-                    .easeInOut(duration: 2.0).repeatForever(autoreverses: true),
-                    value: isAnimating)
+        VStack(spacing: 20) {
+            // Wave frequency animation when recording
+            if connectedModeService.conversationState == .listening {
+                WaveFrequencyAnimation()
+                    .frame(height: 60)
+                    .padding(.horizontal, 40)
             }
 
             // Main action button
@@ -258,56 +243,185 @@ struct ConnectedModeView: View {
                 }
             }) {
                 ZStack {
-                    // Pulsing background
+                    // Immersive background effects
                     if connectedModeService.conversationState == .listening {
-                        Circle()
-                            .fill(buttonColor.opacity(0.3))
-                            .frame(width: 100, height: 100)
-                            .scaleEffect(isAnimating ? 1.2 : 1.0)
-                            .animation(
-                                .easeInOut(duration: 1.5).repeatForever(autoreverses: true),
-                                value: isAnimating)
+                        // Recording pulse effect
+                        ForEach(0..<3) { index in
+                            Circle()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [
+                                            DesignTokens.Colors.connectedMode.opacity(0.4),
+                                            DesignTokens.Colors.connectedMode.opacity(0.1),
+                                        ],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 2
+                                )
+                                .frame(width: 120 + CGFloat(index * 30))
+                                .scaleEffect(isAnimating ? 1.0 + Double(index) * 0.1 : 1.0)
+                                .opacity(isAnimating ? 0.0 : 0.6)
+                                .animation(
+                                    .easeInOut(duration: 2.0)
+                                        .repeatForever(autoreverses: false)
+                                        .delay(Double(index) * 0.3),
+                                    value: isAnimating
+                                )
+                        }
                     }
 
-                    // Main button
+                    // Main button with gradient
                     Circle()
-                        .fill(buttonColor)
-                        .frame(width: 80, height: 80)
-                        .overlay(
-                            Image(systemName: buttonIcon)
-                                .font(.title)
-                                .foregroundColor(.white)
+                        .fill(
+                            LinearGradient(
+                                colors: buttonGradientColors,
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
                         )
-                        .shadow(color: buttonColor.opacity(0.4), radius: 12, x: 0, y: 6)
+                        .frame(width: 100, height: 100)
+                        .overlay(
+                            Circle()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [
+                                            .white.opacity(0.3),
+                                            .clear,
+                                        ],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 2
+                                )
+                        )
+                        .shadow(
+                            color: buttonGradientColors.first?.opacity(0.4) ?? .clear,
+                            radius: connectedModeService.conversationState == .listening ? 20 : 12,
+                            x: 0,
+                            y: connectedModeService.conversationState == .listening ? 10 : 6
+                        )
+
+                    // Button content
+                    VStack(spacing: 4) {
+                        Image(systemName: buttonIcon)
+                            .font(.system(size: 28, weight: .medium))
+                            .foregroundColor(.white)
+                            .scaleEffect(
+                                isAnimating && connectedModeService.conversationState == .listening
+                                    ? 1.1 : 1.0
+                            )
+                            .animation(
+                                .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
+                                value: isAnimating
+                            )
+
+                        Text(buttonText)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.white)
+                    }
                 }
             }
-            .scaleEffect(connectedModeService.conversationState == .listening ? 1.1 : 1.0)
+            .scaleEffect(connectedModeService.conversationState == .listening ? 1.05 : 1.0)
             .animation(
-                .spring(response: 0.3, dampingFraction: 0.6),
-                value: connectedModeService.conversationState)
+                .spring(response: 0.4, dampingFraction: 0.7),
+                value: connectedModeService.conversationState
+            )
+
+            // End conversation button (only show when recording)
+            if connectedModeService.conversationState != .idle {
+                Button(action: {
+                    if !connectedModeService.conversationTurns.isEmpty {
+                        showSaveConversationSheet = true
+                    } else {
+                        connectedModeService.stopConversation()
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 16, weight: .medium))
+
+                        Text("End Conversation")
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(
+                        Capsule()
+                            .fill(
+                                LinearGradient(
+                                    colors: [.red.opacity(0.8), .red.opacity(0.6)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                    )
+                    .shadow(color: .red.opacity(0.3), radius: 8, x: 0, y: 4)
+                }
+                .transition(.scale.combined(with: .opacity))
+                .animation(
+                    .spring(response: 0.4, dampingFraction: 0.7),
+                    value: connectedModeService.conversationState)
+            }
         }
         .padding(.bottom, 40)
     }
 
-    private var buttonColor: Color {
+    private var buttonGradientColors: [Color] {
         switch connectedModeService.conversationState {
-        case .idle: return .blue
-        case .listening: return .green
-        case .transcribing: return .blue
-        case .analyzing: return .orange
-        case .responding: return .purple
-        case .error: return .red
+        case .idle:
+            return [
+                DesignTokens.Colors.connectedMode,
+                DesignTokens.Colors.connectedMode.opacity(0.8),
+            ]
+        case .listening:
+            return [
+                .green,
+                .green.opacity(0.7),
+            ]
+        case .transcribing:
+            return [
+                .blue,
+                .blue.opacity(0.7),
+            ]
+        case .analyzing:
+            return [
+                .orange,
+                .orange.opacity(0.7),
+            ]
+        case .responding:
+            return [
+                .purple,
+                .purple.opacity(0.7),
+            ]
+        case .error:
+            return [
+                .red,
+                .red.opacity(0.7),
+            ]
         }
     }
 
     private var buttonIcon: String {
         switch connectedModeService.conversationState {
         case .idle: return "mic.fill"
-        case .listening: return "stop.fill"
+        case .listening: return "waveform"
         case .transcribing: return "waveform"
         case .analyzing: return "brain.head.profile"
         case .responding: return "bubble.left.and.bubble.right.fill"
         case .error: return "exclamationmark.triangle.fill"
+        }
+    }
+
+    private var buttonText: String {
+        switch connectedModeService.conversationState {
+        case .idle: return "Start"
+        case .listening: return "Recording"
+        case .transcribing: return "Processing"
+        case .analyzing: return "Analyzing"
+        case .responding: return "Responding"
+        case .error: return "Error"
         }
     }
 
@@ -913,6 +1027,52 @@ struct EmotionMetric: View {
                     .font(.caption2)
                     .fontWeight(.bold)
             }
+        }
+    }
+}
+
+// MARK: - Wave Frequency Animation
+
+struct WaveFrequencyAnimation: View {
+    @State private var animationPhase: Double = 0
+    @State private var waveAmplitudes: [Double] = Array(repeating: 0.3, count: 20)
+
+    var body: some View {
+        HStack(spacing: 3) {
+            ForEach(0..<waveAmplitudes.count, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                DesignTokens.Colors.connectedMode,
+                                DesignTokens.Colors.connectedMode.opacity(0.6),
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .frame(width: 4, height: 20 + CGFloat(waveAmplitudes[index] * 40))
+                    .scaleEffect(1.0 + (animationPhase * 0.2))
+                    .opacity(0.6 + (animationPhase * 0.4))
+                    .animation(
+                        .easeInOut(duration: 0.8)
+                            .repeatForever(autoreverses: true)
+                            .delay(Double(index) * 0.05),
+                        value: animationPhase
+                    )
+            }
+        }
+        .onAppear {
+            startWaveAnimation()
+        }
+    }
+
+    private func startWaveAnimation() {
+        // Generate random amplitudes for more realistic wave effect
+        waveAmplitudes = (0..<20).map { _ in Double.random(in: 0.2...1.0) }
+
+        withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
+            animationPhase = 1.0
         }
     }
 }
