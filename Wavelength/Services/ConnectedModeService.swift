@@ -56,11 +56,9 @@ class ConnectedModeService: ObservableObject {
     private var pendingUserTranscript = ""
     private var isAIResponding = false 
 
-    
-    private let apiBaseURL = "http:
-    private let openaiSessionURL = "http:
+    private let apiBaseURL = "http://10.0.0.188:3000"
+    private let openaiSessionURL = "http://10.0.0.188:3000/api/openai/realtime/session"
 
-    
     init() {
         setupAudioSession()
         setupPlaybackEngine()
@@ -210,7 +208,7 @@ class ConnectedModeService: ObservableObject {
 
     private func setupOpenAIConnection(token: String) async throws {
         
-        let wsURLString = "wss:
+        let wsURLString = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview"
         guard let wsURL = URL(string: wsURLString) else {
             throw ConnectedModeError.websocketConnectionFailed("Invalid OpenAI WebSocket URL")
         }
