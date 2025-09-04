@@ -254,6 +254,16 @@ struct ReflectionView: View {
             baseValence = 0.3
         case .neutral:
             baseValence = 0.5
+        case .happy:
+            baseValence = 0.8
+        case .sad:
+            baseValence = 0.2
+        case .anxious:
+            baseValence = 0.3
+        case .grateful:
+            baseValence = 0.8
+        case .overwhelmed:
+            baseValence = 0.4
         }
 
         return (0..<6).map { _ in

@@ -73,7 +73,7 @@ enum TurnBoundary {
     case assistantEnd
 }
 
-struct ConversationTurn: Equatable {
+struct ConversationTurn: Equatable, Codable, Identifiable {
     let id: UUID
     let userTranscript: String
     let prosodySnapshot: ProsodySnapshot?

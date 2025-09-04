@@ -9,10 +9,13 @@ struct Entry: Identifiable, Equatable, Hashable, Codable {
     var counselorReply: String?
     var tags: [String]
     var feeling: Feeling
-    var valenceSeries: [Double] // 0...1 for mini chart
+    var valenceSeries: [Double]  // 0...1 for mini chart
     var mode: Mode
     var favorite: Bool
-    
+    var isAIGenerated: Bool
+    var originalConversationTurns: [ConversationTurn]?
+    var emotionalState: String?
+
     init(
         id: UUID = UUID(),
         date: Date = Date(),
@@ -23,7 +26,10 @@ struct Entry: Identifiable, Equatable, Hashable, Codable {
         feeling: Feeling = .neutral,
         valenceSeries: [Double] = [],
         mode: Mode = .privateMode,
-        favorite: Bool = false
+        favorite: Bool = false,
+        isAIGenerated: Bool = false,
+        originalConversationTurns: [ConversationTurn]? = nil,
+        emotionalState: String? = nil
     ) {
         self.id = id
         self.date = date
@@ -35,8 +41,11 @@ struct Entry: Identifiable, Equatable, Hashable, Codable {
         self.valenceSeries = valenceSeries
         self.mode = mode
         self.favorite = favorite
+        self.isAIGenerated = isAIGenerated
+        self.originalConversationTurns = originalConversationTurns
+        self.emotionalState = emotionalState
     }
-    
+
     // MARK: - Computed Properties
     var formattedDate: String {
         let formatter = DateFormatter()
@@ -44,16 +53,16 @@ struct Entry: Identifiable, Equatable, Hashable, Codable {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
-    
+
     var shortDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d"
         return formatter.string(from: date)
     }
-    
+
     var timeAgo: String {
         let interval = Date().timeIntervalSince(date)
-        
+
         if interval < 60 {
             return "Just now"
         } else if interval < 3600 {
@@ -67,10 +76,61 @@ struct Entry: Identifiable, Equatable, Hashable, Codable {
             return "\(days)d ago"
         }
     }
-    
+
     var averageValence: Double {
         guard !valenceSeries.isEmpty else { return 0.5 }
         return valenceSeries.reduce(0, +) / Double(valenceSeries.count)
+    }
+
+    // MARK: - Protocol Conformance
+
+    static func == (lhs: Entry, rhs: Entry) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, date, title, transcript, counselorReply, tags, feeling, valenceSeries, mode,
+            favorite
+        case isAIGenerated, originalConversationTurns, emotionalState
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        date = try container.decode(Date.self, forKey: .date)
+        title = try container.decode(String.self, forKey: .title)
+        transcript = try container.decode(String.self, forKey: .transcript)
+        counselorReply = try container.decodeIfPresent(String.self, forKey: .counselorReply)
+        tags = try container.decode([String].self, forKey: .tags)
+        feeling = try container.decode(Feeling.self, forKey: .feeling)
+        valenceSeries = try container.decode([Double].self, forKey: .valenceSeries)
+        mode = try container.decode(Mode.self, forKey: .mode)
+        favorite = try container.decode(Bool.self, forKey: .favorite)
+        isAIGenerated = try container.decodeIfPresent(Bool.self, forKey: .isAIGenerated) ?? false
+        originalConversationTurns = try container.decodeIfPresent(
+            [ConversationTurn].self, forKey: .originalConversationTurns)
+        emotionalState = try container.decodeIfPresent(String.self, forKey: .emotionalState)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(date, forKey: .date)
+        try container.encode(title, forKey: .title)
+        try container.encode(transcript, forKey: .transcript)
+        try container.encodeIfPresent(counselorReply, forKey: .counselorReply)
+        try container.encode(tags, forKey: .tags)
+        try container.encode(feeling, forKey: .feeling)
+        try container.encode(valenceSeries, forKey: .valenceSeries)
+        try container.encode(mode, forKey: .mode)
+        try container.encode(favorite, forKey: .favorite)
+        try container.encode(isAIGenerated, forKey: .isAIGenerated)
+        try container.encodeIfPresent(originalConversationTurns, forKey: .originalConversationTurns)
+        try container.encodeIfPresent(emotionalState, forKey: .emotionalState)
     }
 }
 
@@ -83,7 +143,7 @@ struct WeeklySummary: Identifiable {
     let tryNext: [String]
     let moodTrend: [Double]
     let tagFrequency: [String: Int]
-    
+
     init(
         weekStart: Date = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date(),
         wins: [String] = [],

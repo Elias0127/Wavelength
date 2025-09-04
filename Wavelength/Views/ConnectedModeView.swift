@@ -6,6 +6,7 @@ struct ConnectedModeView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isAnimating = false
     @State private var breathingPhase: Double = 0
+    @State private var showSaveConversationSheet = false
 
     var body: some View {
         ZStack {
@@ -78,6 +79,23 @@ struct ConnectedModeView: View {
             if let errorMessage = connectedModeService.errorMessage {
                 Text(errorMessage)
             }
+        }
+        .sheet(isPresented: $showSaveConversationSheet) {
+            SaveConversationSheet(
+                conversationTurns: connectedModeService.conversationTurns,
+                onSave: { entry in
+                    // Save the entry to the journal
+                    // This would typically be handled by a data service
+                    print("Saving AI conversation entry: \(entry.title)")
+                    showSaveConversationSheet = false
+                    connectedModeService.stopConversation()
+                    dismiss()
+                },
+                onCancel: {
+                    showSaveConversationSheet = false
+                    connectedModeService.stopConversation()
+                }
+            )
         }
     }
 
@@ -231,7 +249,12 @@ struct ConnectedModeView: View {
                         await connectedModeService.startConversation()
                     }
                 } else {
-                    connectedModeService.stopConversation()
+                    // Check if we have conversation turns to save
+                    if !connectedModeService.conversationTurns.isEmpty {
+                        showSaveConversationSheet = true
+                    } else {
+                        connectedModeService.stopConversation()
+                    }
                 }
             }) {
                 ZStack {
