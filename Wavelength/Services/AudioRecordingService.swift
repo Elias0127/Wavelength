@@ -2,45 +2,69 @@ import AVFoundation
 import Combine
 import Foundation
 
-
 @MainActor
 class AudioRecordingService: NSObject, ObservableObject {
     static let shared = AudioRecordingService()
 
-    
     @Published var isRecording = false
     @Published var recordingDuration: TimeInterval = 0
     @Published var audioLevel: Float = 0.0
     @Published var error: AudioRecordingError?
+    @Published var isAuthorized = false
 
-    
     private var recordingTimer: Timer?
     private var levelTimer: Timer?
+    private var audioRecorder: AVAudioRecorder?
+    private var audioSession: AVAudioSession?
 
-    
     override init() {
         super.init()
-        setupAudioSession()
+        requestMicrophonePermission()
     }
 
-    
+    private func requestMicrophonePermission() {
+        AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
+            DispatchQueue.main.async {
+                self?.isAuthorized = granted
+                if !granted {
+                    self?.error = .permissionDenied
+                    print("Microphone permission denied")
+                } else {
+                    print("Microphone permission granted")
+                }
+            }
+        }
+    }
+
     private func setupAudioSession() {
-        
-        
+        audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession?.setCategory(.record, mode: .measurement, options: .duckOthers)
+            try audioSession?.setActive(true, options: .notifyOthersOnDeactivation)
+            print("Audio session setup successful")
+        } catch {
+            self.error = .audioSessionError(error)
+            print("Audio session setup failed: \(error)")
+        }
     }
 
-    
     func startRecording() {
+        guard isAuthorized else {
+            error = .permissionDenied
+            print("Cannot start recording: microphone not authorized")
+            return
+        }
+
         guard !isRecording else { return }
 
-        
+        setupAudioSession()
         stopTimers()
 
-        
         isRecording = true
         recordingDuration = 0
         startTimers()
         error = nil
+        print("Audio recording started")
     }
 
     func stopRecording() {
@@ -48,6 +72,15 @@ class AudioRecordingService: NSObject, ObservableObject {
 
         stopTimers()
         isRecording = false
+
+        // Deactivate audio session
+        do {
+            try audioSession?.setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Failed to deactivate audio session: \(error)")
+        }
+
+        print("Audio recording stopped")
     }
 
     func cancelRecording() {
@@ -55,11 +88,11 @@ class AudioRecordingService: NSObject, ObservableObject {
         recordingDuration = 0
         audioLevel = 0.0
         error = nil
+        print("Audio recording cancelled")
     }
 
-    
     private func startTimers() {
-        
+        // Recording duration timer
         recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) {
             [weak self] timer in
             guard let self = self else {
@@ -72,17 +105,14 @@ class AudioRecordingService: NSObject, ObservableObject {
                     return
                 }
                 self.recordingDuration += 0.1
-                
-                
             }
         }
 
-        
         if let timer = recordingTimer {
             RunLoop.main.add(timer, forMode: .common)
         }
 
-        
+        // Audio level timer
         levelTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) {
             [weak self] timer in
             guard let self = self else {
@@ -98,7 +128,6 @@ class AudioRecordingService: NSObject, ObservableObject {
             }
         }
 
-        
         if let timer = levelTimer {
             RunLoop.main.add(timer, forMode: .common)
         }
@@ -112,8 +141,7 @@ class AudioRecordingService: NSObject, ObservableObject {
     }
 
     private func updateAudioLevel() {
-        
-        
+        // Simulate audio level for now - in a real implementation, this would read from the audio input
         if isRecording {
             audioLevel = Float.random(in: 0.1...0.8)
         } else {
@@ -121,21 +149,16 @@ class AudioRecordingService: NSObject, ObservableObject {
         }
     }
 
-    
     func getRecordingData() -> Data? {
-        
+        // This would return actual recording data in a real implementation
         return nil
     }
 
-    
     deinit {
         recordingTimer?.invalidate()
         levelTimer?.invalidate()
     }
 }
-
-
-
 
 enum AudioRecordingError: LocalizedError {
     case permissionDenied

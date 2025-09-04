@@ -3,30 +3,25 @@ import Combine
 import Foundation
 import Speech
 
-
 @MainActor
 class SpeechRecognitionService: NSObject, ObservableObject {
     static let shared = SpeechRecognitionService()
 
-    
     @Published var isRecording = false
     @Published var transcript = ""
     @Published var isAuthorized = false
     @Published var error: SpeechRecognitionError?
 
-    
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
 
-    
     override init() {
         super.init()
         requestPermissions()
     }
 
-    
     private func requestPermissions() {
         SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
             DispatchQueue.main.async {
@@ -44,7 +39,6 @@ class SpeechRecognitionService: NSObject, ObservableObject {
         }
     }
 
-    
     func startRecording() {
         guard isAuthorized else {
             error = .permissionDenied
@@ -53,13 +47,11 @@ class SpeechRecognitionService: NSObject, ObservableObject {
 
         guard !isRecording else { return }
 
-        
         if let recognitionTask = recognitionTask {
             recognitionTask.cancel()
             self.recognitionTask = nil
         }
 
-        
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
@@ -69,7 +61,6 @@ class SpeechRecognitionService: NSObject, ObservableObject {
             return
         }
 
-        
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         guard let recognitionRequest = recognitionRequest else {
             self.error = .recognitionRequestError
@@ -78,13 +69,11 @@ class SpeechRecognitionService: NSObject, ObservableObject {
 
         recognitionRequest.shouldReportPartialResults = true
 
-        
         guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
             self.error = .speechRecognizerUnavailable
             return
         }
 
-        
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) {
             [weak self] result, error in
             DispatchQueue.main.async {
@@ -99,7 +88,6 @@ class SpeechRecognitionService: NSObject, ObservableObject {
             }
         }
 
-        
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
 
@@ -107,7 +95,6 @@ class SpeechRecognitionService: NSObject, ObservableObject {
             self.recognitionRequest?.append(buffer)
         }
 
-        
         audioEngine.prepare()
         do {
             try audioEngine.start()
@@ -122,27 +109,36 @@ class SpeechRecognitionService: NSObject, ObservableObject {
     func stopRecording() {
         guard isRecording else { return }
 
-        
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
-
-        
-        recognitionRequest?.endAudio()
-        recognitionRequest = nil
-
-        
-        recognitionTask?.cancel()
-        recognitionTask = nil
-
-        
-        do {
-            try AVAudioSession.sharedInstance().setActive(
-                false, options: .notifyOthersOnDeactivation)
-        } catch {
-            print("Failed to deactivate audio session: \(error)")
-        }
-
+        print("Stopping speech recognition...")
         isRecording = false
+
+        let finalTranscript = self.transcript
+
+        recognitionRequest?.endAudio()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+
+            if !finalTranscript.isEmpty {
+                self.transcript = finalTranscript
+                print("Final transcript captured: '\(finalTranscript)'")
+            } else {
+                print("No transcript captured")
+            }
+
+            self.recognitionTask?.cancel()
+            self.recognitionTask = nil
+            self.recognitionRequest = nil
+
+            do {
+                try AVAudioSession.sharedInstance().setActive(
+                    false, options: .notifyOthersOnDeactivation)
+            } catch {
+                print("Failed to deactivate audio session: \(error)")
+            }
+
+            print("Speech recognition stopped")
+        }
     }
 
     func cancelRecording() {
@@ -151,14 +147,12 @@ class SpeechRecognitionService: NSObject, ObservableObject {
         error = nil
     }
 
-    
     deinit {
         Task { @MainActor in
             stopRecording()
         }
     }
 }
-
 
 enum SpeechRecognitionError: LocalizedError {
     case permissionDenied

@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct ReflectionView: View {
     let transcript: String
     @ObservedObject var appViewModel: AppViewModel
@@ -13,7 +12,7 @@ struct ReflectionView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.xl) {
-                    
+
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Your Words")
                             .h2()
@@ -29,7 +28,6 @@ struct ReflectionView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
 
-                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         HStack {
                             HStack(spacing: DesignTokens.Spacing.sm) {
@@ -43,7 +41,6 @@ struct ReflectionView: View {
 
                             Spacer()
 
-                            
                             HStack(spacing: DesignTokens.Spacing.xs) {
                                 Circle()
                                     .fill(DesignTokens.Colors.success)
@@ -55,9 +52,8 @@ struct ReflectionView: View {
                             }
                         }
 
-                        
                         HStack(alignment: .top, spacing: DesignTokens.Spacing.md) {
-                            
+
                             ZStack {
                                 Circle()
                                     .fill(
@@ -77,16 +73,11 @@ struct ReflectionView: View {
                                     .font(.system(size: 14, weight: .medium))
                             }
 
-                            
                             VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
-                                Text(
-                                    counselorReply.isEmpty
-                                        ? generateCounselorReply() : counselorReply
-                                )
-                                .bodyText()
-                                .multilineTextAlignment(.leading)
+                                Text(counselorReply)
+                                    .bodyText()
+                                    .multilineTextAlignment(.leading)
 
-                                
                                 HStack {
                                     Text("Wavelength AI")
                                         .font(.system(size: 11, weight: .medium))
@@ -125,12 +116,10 @@ struct ReflectionView: View {
                     .cardBackground()
                     .padding(.horizontal, DesignTokens.Spacing.lg)
 
-                    
                     VStack(alignment: .leading, spacing: DesignTokens.Spacing.lg) {
                         Text("Tags & Feeling")
                             .h2()
 
-                        
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
                             Text("Tags")
                                 .bodyText()
@@ -151,7 +140,6 @@ struct ReflectionView: View {
                             }
                         }
 
-                        
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
                             Text("How did you feel?")
                                 .bodyText()
@@ -193,7 +181,7 @@ struct ReflectionView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save Entry") {
-                        
+
                         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                         impactFeedback.impactOccurred()
                         saveEntry()
@@ -204,27 +192,19 @@ struct ReflectionView: View {
             }
         }
         .onAppear {
-            
+            print("ReflectionView appeared with transcript: '\(transcript)'")
+
             let aiService = AIService.shared
             let sentimentAnalysis = aiService.analyzeSentiment(transcript)
             feeling = sentimentAnalysis.feeling
+            print("Sentiment analysis result: \(feeling)")
 
-            counselorReply = generateCounselorReply()
-            tags = extractTags(from: transcript)
+            counselorReply = aiService.generateCounselorReply(for: transcript, feeling: feeling)
+            print("Counselor reply generated: '\(counselorReply)'")
+
+            tags = aiService.extractTags(from: transcript)
+            print("Tags extracted: \(tags)")
         }
-    }
-
-    
-    private func generateCounselorReply() -> String {
-        
-        let aiService = AIService.shared
-        return aiService.generateCounselorReply(for: transcript, feeling: feeling)
-    }
-
-    private func extractTags(from text: String) -> [String] {
-        
-        let aiService = AIService.shared
-        return aiService.extractTags(from: text)
     }
 
     private var suggestedTags: [String] {
@@ -265,7 +245,7 @@ struct ReflectionView: View {
     }
 
     private func generateValenceSeries() -> [Double] {
-        
+
         let baseValence: Double
         switch feeling {
         case .calm:
@@ -281,7 +261,6 @@ struct ReflectionView: View {
         }.map { max(0, min(1, $0)) }
     }
 }
-
 
 #Preview {
     ReflectionView(

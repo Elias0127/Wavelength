@@ -1,34 +1,26 @@
 import Foundation
 import NaturalLanguage
 
-
 @MainActor
 class AIService: ObservableObject {
     static let shared = AIService()
 
-    
     private let tagger = NLTagger(tagSchemes: [.sentimentScore, .lexicalClass, .nameType, .lemma])
     private let embedding = NLEmbedding.wordEmbedding(for: .english)
     private let languageRecognizer = NLLanguageRecognizer()
 
-    
     private var conversationContext: ConversationContext = ConversationContext()
 
-    
     private init() {}
 
-    
     func analyzeAndRespond(to text: String, previousEntries: [Entry] = []) -> JournalAnalysis {
-        
+
         let linguisticFeatures = extractLinguisticFeatures(from: text)
 
-        
         let emotionalState = modelEmotionalState(from: text, features: linguisticFeatures)
 
-        
         let patterns = detectPatterns(in: text, withHistory: previousEntries)
 
-        
         let counselorResponse = generateContextualCounselorResponse(
             for: text,
             emotionalState: emotionalState,
@@ -36,10 +28,8 @@ class AIService: ObservableObject {
             linguisticFeatures: linguisticFeatures
         )
 
-        
         let insights = extractInsights(from: text, patterns: patterns)
 
-        
         updateContext(with: text, emotionalState: emotionalState)
 
         return JournalAnalysis(
@@ -53,98 +43,76 @@ class AIService: ObservableObject {
         )
     }
 
-    
     private func extractLinguisticFeatures(from text: String) -> LinguisticFeatures {
         var features = LinguisticFeatures()
         tagger.string = text
 
-        
         let sentences = text.components(separatedBy: CharacterSet(charactersIn: ".!?"))
         features.sentenceComplexity = analyzeSentenceComplexity(sentences)
 
-        
         features.temporalOrientation = analyzeTemporalOrientation(text)
 
-        
         features.cognitiveDistortions = detectCognitiveDistortions(in: text)
 
-        
         features.emotionalVocabularyRichness = measureEmotionalVocabulary(text)
 
-        
         features.speechPatterns = analyzeSpeechPatterns(text)
 
-        
         features.pronounUsage = analyzePronounUsage(text)
 
         return features
     }
 
-    
     private func modelEmotionalState(from text: String, features: LinguisticFeatures)
         -> EmotionalState
     {
         var state = EmotionalState()
 
-        
         let emotions = detectMultiDimensionalEmotions(text)
         state.emotionVector = emotions
 
-        
         state.depth = calculateEmotionalDepth(text, features: features)
 
-        
         state.transitions = detectEmotionalTransitions(text)
 
-        
         let (arousal, valence) = mapArousalValence(emotions: emotions, features: features)
         state.arousal = arousal
         state.valence = valence
 
-        
         state.primaryFeeling = classifyPrimaryFeeling(
             arousal: arousal, valence: valence, depth: state.depth)
 
-        
         state.valenceSeries = generateRealisticValenceSeries(
             baseValence: valence,
             transitions: state.transitions,
             textLength: text.count
         )
 
-        
         state.sentimentScore = calculateWeightedSentiment(text, emotions: emotions)
 
         return state
     }
 
-    
     private func detectPatterns(in text: String, withHistory: [Entry]) -> [Pattern] {
         var patterns: [Pattern] = []
 
-        
         if !withHistory.isEmpty {
             patterns.append(
                 contentsOf: findRecurringThemes(currentText: text, history: withHistory))
         }
 
-        
         patterns.append(contentsOf: detectEmotionalCycles(in: withHistory))
 
-        
         patterns.append(contentsOf: identifyTriggers(currentText: text, history: withHistory))
 
-        
         patterns.append(contentsOf: detectCopingMechanisms(in: text))
 
-        
         patterns.append(
             contentsOf: identifyGrowthIndicators(currentText: text, history: withHistory))
 
         return patterns
     }
 
-    
     private func generateContextualCounselorResponse(
         for text: String,
         emotionalState: EmotionalState,
@@ -152,20 +120,17 @@ class AIService: ObservableObject {
         linguisticFeatures: LinguisticFeatures
     ) -> String {
 
-        
         let crisisLevel = detectCrisisLevel(text.lowercased())
         if crisisLevel != .low {
             return generateCrisisResponse(level: crisisLevel, emotionalState: emotionalState)
         }
 
-        
         let technique = selectOARSTechnique(
             emotionalState: emotionalState,
             patterns: patterns,
             features: linguisticFeatures
         )
 
-        
         switch technique {
         case .openQuestion:
             return generateOpenQuestion(text: text, state: emotionalState, patterns: patterns)
@@ -180,14 +145,12 @@ class AIService: ObservableObject {
         }
     }
 
-    
     private func generateOpenQuestion(text: String, state: EmotionalState, patterns: [Pattern])
         -> String
     {
-        
 
         if state.depth == .surface && state.arousal > 0.7 {
-            
+
             let questions = [
                 "There's a lot of energy in what you're sharing. What's underneath that feeling for you?",
                 "It sounds intense. If you had to name what you're really needing right now, what would it be?",
@@ -197,7 +160,7 @@ class AIService: ObservableObject {
         }
 
         if patterns.contains(where: { $0.type == .recurringTheme }) {
-            
+
             if let theme = patterns.first(where: { $0.type == .recurringTheme }) {
                 return
                     "I notice \(theme.description) comes up often for you. What do you think that pattern is telling you?"
@@ -205,12 +168,11 @@ class AIService: ObservableObject {
         }
 
         if state.transitions.count > 2 {
-            
+
             return
                 "Your feelings seem to be shifting as you talk about this. What's the thread connecting these different emotions?"
         }
 
-        
         if state.valence < 0.3 {
             return
                 "This sounds really difficult. What would even a small step forward look like for you?"
@@ -224,26 +186,22 @@ class AIService: ObservableObject {
     private func generateAffirmation(
         text: String, state: EmotionalState, features: LinguisticFeatures
     ) -> String {
-        
+
         var strengths: [String] = []
 
-        
         if features.emotionalVocabularyRichness > 0.6 {
             strengths.append("self-awareness")
         }
 
-        
         let resilienceWords = ["trying", "working on", "getting better", "improving", "learning"]
         if resilienceWords.contains(where: { text.lowercased().contains($0) }) {
             strengths.append("resilience")
         }
 
-        
         if state.depth == .deep {
             strengths.append("vulnerability")
         }
 
-        
         if strengths.contains("vulnerability") {
             return
                 "Thank you for sharing something so personal. It takes real courage to look at these deeper feelings."
@@ -262,15 +220,12 @@ class AIService: ObservableObject {
     private func generateReflection(
         text: String, state: EmotionalState, features: LinguisticFeatures
     ) -> String {
-        
 
-        
         if state.emotionVector.count > 2 && state.emotionVector.values.max()! < 0.6 {
             return
                 "It sounds like you're feeling pulled in different directions - part of you feels \(state.primaryFeeling.displayName), but there's also something else there that's harder to name."
         }
 
-        
         if let distortion = features.cognitiveDistortions.first {
             switch distortion {
             case .allOrNothing:
@@ -288,19 +243,16 @@ class AIService: ObservableObject {
             }
         }
 
-        
         let needsReflection = reflectUnderlyingNeeds(text: text, state: state)
         if !needsReflection.isEmpty {
             return needsReflection
         }
 
-        
         return
             "What I'm hearing is a deep sense of \(state.primaryFeeling.displayName), and it seems like this has been weighing on you for a while."
     }
 
     private func generateSummary(patterns: [Pattern], state: EmotionalState) -> String {
-        
 
         var summary = "Looking at everything you've shared"
 
@@ -325,30 +277,24 @@ class AIService: ObservableObject {
         return summary
     }
 
-    
     private func selectOARSTechnique(
         emotionalState: EmotionalState,
         patterns: [Pattern],
         features: LinguisticFeatures
     ) -> OARSTechnique {
-        
 
-        
         if patterns.count >= 3 {
             return .summary
         }
 
-        
         if emotionalState.depth == .deep && conversationContext.responseCount % 3 == 1 {
             return .affirmation
         }
 
-        
         if !features.cognitiveDistortions.isEmpty {
             return .reflection
         }
 
-        
         return .openQuestion
     }
 
@@ -357,21 +303,17 @@ class AIService: ObservableObject {
     {
         var depthScore = 0.0
 
-        
         depthScore += features.emotionalVocabularyRichness * 0.3
 
-        
         if features.pronounUsage.i > 0.3 {
             depthScore += 0.2
         }
 
-        
         let vulnerabilityMarkers = ["afraid", "scared", "ashamed", "lonely", "hurt", "vulnerable"]
         if vulnerabilityMarkers.contains(where: { text.lowercased().contains($0) }) {
             depthScore += 0.3
         }
 
-        
         let insightMarkers = ["realize", "understand", "notice", "feel like", "seems like"]
         if insightMarkers.contains(where: { text.lowercased().contains($0) }) {
             depthScore += 0.2
@@ -387,14 +329,14 @@ class AIService: ObservableObject {
     }
 
     private func selectResponseVariation(_ responses: [String], basedOn text: String) -> String {
-        
+
         let hash = text.hashValue
         let index = abs(hash) % responses.count
         return responses[index]
     }
 
     private func reflectUnderlyingNeeds(text: String, state: EmotionalState) -> String {
-        
+
         let needsMap: [String: [String]] = [
             "anxious": ["safety", "certainty", "control"],
             "sad": ["connection", "understanding", "comfort"],
@@ -413,12 +355,9 @@ class AIService: ObservableObject {
         return ""
     }
 
-    
-
     private func extractInsights(from text: String, patterns: [Pattern]) -> [Insight] {
         var insights: [Insight] = []
 
-        
         if patterns.contains(where: { $0.type == .recurringTheme }) {
             insights.append(
                 Insight(
@@ -444,7 +383,6 @@ class AIService: ObservableObject {
         conversationContext.responseCount += 1
         conversationContext.dominantEmotions.append(emotionalState.primaryFeeling.rawValue)
 
-        
         if conversationContext.dominantEmotions.count > 10 {
             conversationContext.dominantEmotions.removeFirst()
         }
@@ -453,7 +391,6 @@ class AIService: ObservableObject {
     private func extractSmartTags(from text: String, features: LinguisticFeatures) -> [String] {
         var tags: [String] = []
 
-        
         let emotionalKeywords = [
             "anxious", "sad", "happy", "angry", "overwhelmed", "calm", "stressed",
         ]
@@ -463,7 +400,6 @@ class AIService: ObservableObject {
             }
         }
 
-        
         let topicKeywords = ["work", "family", "relationship", "health", "sleep", "exercise"]
         for keyword in topicKeywords {
             if text.lowercased().contains(keyword) {
@@ -471,7 +407,7 @@ class AIService: ObservableObject {
             }
         }
 
-        return Array(Set(tags))  
+        return Array(Set(tags))
     }
 
     private func analyzeSentenceComplexity(_ sentences: [String]) -> Double {
@@ -480,7 +416,6 @@ class AIService: ObservableObject {
         let totalWords = sentences.reduce(0) { $0 + $1.components(separatedBy: .whitespaces).count }
         let avgWordsPerSentence = Double(totalWords) / Double(sentences.count)
 
-        
         return min(1.0, max(0.0, (avgWordsPerSentence - 5) / 15))
     }
 
@@ -514,28 +449,24 @@ class AIService: ObservableObject {
         var distortions: [CognitiveDistortion] = []
         let lowercased = text.lowercased()
 
-        
         if lowercased.contains("always") || lowercased.contains("never")
             || lowercased.contains("all") || lowercased.contains("none")
         {
             distortions.append(.allOrNothing)
         }
 
-        
         if lowercased.contains("worst") || lowercased.contains("terrible")
             || lowercased.contains("disaster")
         {
             distortions.append(.catastrophizing)
         }
 
-        
         if lowercased.contains("they think") || lowercased.contains("everyone thinks")
             || lowercased.contains("probably thinks")
         {
             distortions.append(.mindReading)
         }
 
-        
         if lowercased.contains("my fault") || lowercased.contains("because of me")
             || lowercased.contains("I caused")
         {
@@ -555,24 +486,21 @@ class AIService: ObservableObject {
         let words = text.lowercased().components(separatedBy: .whitespacesAndNewlines)
         let emotionalWordCount = words.filter { emotionalWords.contains($0) }.count
 
-        return min(1.0, Double(emotionalWordCount) / Double(words.count) * 10)  
+        return min(1.0, Double(emotionalWordCount) / Double(words.count) * 10)
     }
 
     private func analyzeSpeechPatterns(_ text: String) -> SpeechPattern {
         var pattern = SpeechPattern()
 
-        
         let words = text.components(separatedBy: .whitespacesAndNewlines)
         let wordCounts = Dictionary(grouping: words, by: { $0.lowercased() })
         pattern.repetitions = wordCounts.values.filter { $0.count > 2 }.count
 
-        
         let hesitationMarkers = ["um", "uh", "like", "you know"]
         pattern.hesitations = hesitationMarkers.reduce(0) {
             $0 + text.lowercased().components(separatedBy: $1).count - 1
         }
 
-        
         let negationWords = ["not", "no", "never", "can't", "won't", "don't"]
         pattern.negations = negationWords.reduce(0) {
             $0 + text.lowercased().components(separatedBy: $1).count - 1
@@ -617,7 +545,7 @@ class AIService: ObservableObject {
                 $0 + (lowercased.components(separatedBy: $1).count - 1)
             }
             if count > 0 {
-                emotions[emotion] = min(1.0, Double(count) / 5.0)  
+                emotions[emotion] = min(1.0, Double(count) / 5.0)
             }
         }
 
@@ -625,7 +553,7 @@ class AIService: ObservableObject {
     }
 
     private func detectEmotionalTransitions(_ text: String) -> [EmotionalTransition] {
-        
+
         let transitionWords = ["but", "however", "although", "yet", "still", "though"]
         var transitions: [EmotionalTransition] = []
 
@@ -647,17 +575,16 @@ class AIService: ObservableObject {
     private func mapArousalValence(emotions: [String: Double], features: LinguisticFeatures) -> (
         Double, Double
     ) {
-        
+
         let arousal = emotions.values.reduce(0, +) / Double(emotions.count)
 
-        
         let positiveEmotions = ["joy", "excitement", "happiness"]
         let negativeEmotions = ["sadness", "anger", "fear", "disgust"]
 
         let positiveScore = positiveEmotions.compactMap { emotions[$0] }.reduce(0, +)
         let negativeScore = negativeEmotions.compactMap { emotions[$0] }.reduce(0, +)
 
-        let valence = (positiveScore - negativeScore + 1) / 2  
+        let valence = (positiveScore - negativeScore + 1) / 2
 
         return (arousal, valence)
     }
@@ -665,13 +592,21 @@ class AIService: ObservableObject {
     private func classifyPrimaryFeeling(arousal: Double, valence: Double, depth: EmotionalDepth)
         -> Feeling
     {
-        
-        if valence < 0.3 {
+
+        // More nuanced classification based on both arousal and valence
+        if valence < 0.4 {
             return .tense
-        } else if valence > 0.7 {
+        } else if valence > 0.6 {
             return .calm
         } else {
-            return .neutral
+            // In the middle range, consider arousal
+            if arousal > 0.6 {
+                return .tense
+            } else if arousal < 0.4 {
+                return .calm
+            } else {
+                return .neutral
+            }
         }
     }
 
@@ -691,7 +626,7 @@ class AIService: ObservableObject {
     }
 
     private func calculateWeightedSentiment(_ text: String, emotions: [String: Double]) -> Double {
-        
+
         tagger.string = text
         var sentimentScore: Double = 0.0
 
@@ -704,18 +639,17 @@ class AIService: ObservableObject {
             return true
         }
 
-        
         let emotionalIntensity = emotions.values.reduce(0, +) / Double(emotions.count)
         return sentimentScore * (0.5 + emotionalIntensity * 0.5)
     }
 
     private func findRecurringThemes(currentText: String, history: [Entry]) -> [Pattern] {
-        
+
         var patterns: [Pattern] = []
         let currentWords = Set(
             currentText.lowercased().components(separatedBy: .whitespacesAndNewlines))
 
-        for entry in history.prefix(5) {  
+        for entry in history.prefix(5) {
             let entryWords = Set(
                 entry.transcript.lowercased().components(separatedBy: .whitespacesAndNewlines))
             let commonWords = currentWords.intersection(entryWords)
@@ -734,7 +668,7 @@ class AIService: ObservableObject {
     }
 
     private func detectEmotionalCycles(in history: [Entry]) -> [Pattern] {
-        
+
         var patterns: [Pattern] = []
 
         if history.count >= 3 {
@@ -753,7 +687,7 @@ class AIService: ObservableObject {
     }
 
     private func identifyTriggers(currentText: String, history: [Entry]) -> [Pattern] {
-        
+
         var patterns: [Pattern] = []
         let triggerWords = ["work", "family", "money", "health", "relationship"]
 
@@ -808,38 +742,33 @@ class AIService: ObservableObject {
     }
 
     private func detectCrisisLevel(_ text: String) -> CrisisLevel {
-        
+
         let immediateRiskKeywords = [
             "taking my life", "kill myself", "end my life", "suicide", "kill me",
             "want to die", "ready to die", "going to die", "end it all",
             "hurt myself", "harm myself", "cut myself", "overdose", "jump off",
         ]
 
-        
         let highRiskKeywords = [
             "not worth living", "nothing to live for", "better off dead",
             "world would be better without me", "everyone would be happier",
             "can't go on", "give up", "hopeless", "worthless", "burden",
         ]
 
-        
         let moderateRiskKeywords = [
             "depressed", "suicidal thoughts", "thinking about death",
             "don't want to be here", "tired of living", "life is pointless",
             "no point in living", "wish I was dead", "want to disappear",
         ]
 
-        
         if immediateRiskKeywords.contains(where: { text.contains($0) }) {
             return .immediate
         }
 
-        
         if highRiskKeywords.contains(where: { text.contains($0) }) {
             return .high
         }
 
-        
         if moderateRiskKeywords.contains(where: { text.contains($0) }) {
             return .moderate
         }
@@ -893,9 +822,16 @@ class AIService: ObservableObject {
         }
     }
 
-    
-
     func analyzeSentiment(_ text: String) -> SentimentAnalysis {
+        // Return neutral for empty text
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return SentimentAnalysis(
+                feeling: .neutral,
+                sentimentScore: 0.5,
+                valenceSeries: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+            )
+        }
+
         let analysis = analyzeAndRespond(to: text)
         return SentimentAnalysis(
             feeling: analysis.feeling,
@@ -905,16 +841,26 @@ class AIService: ObservableObject {
     }
 
     func extractTags(from text: String) -> [String] {
+        // Don't extract tags from empty text
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return []
+        }
+
         let analysis = analyzeAndRespond(to: text)
         return analysis.tags
     }
 
     func generateCounselorReply(for text: String, feeling: Feeling) -> String {
+        // Don't generate response for empty text
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return
+                "I didn't catch any words in your recording. Please try speaking again or check your microphone settings."
+        }
+
         let analysis = analyzeAndRespond(to: text)
         return analysis.counselorReply
     }
 }
-
 
 struct JournalAnalysis {
     let feeling: Feeling
@@ -982,7 +928,6 @@ struct PronounUsage {
     var they: Double = 0.0
 }
 
-
 enum OARSTechnique {
     case openQuestion
     case affirmation
@@ -1031,7 +976,6 @@ enum CrisisLevel {
     case moderate
     case low
 }
-
 
 struct SentimentAnalysis {
     let feeling: Feeling
