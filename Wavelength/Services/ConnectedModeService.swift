@@ -5,7 +5,7 @@ import Network
 
 @MainActor
 class ConnectedModeService: ObservableObject {
-    // MARK: - Published Properties
+    
     @Published var conversationState: ConversationState = .idle
     @Published var liveCaptionState = LiveCaptionState(
         partialText: "", isFinalized: false, confidence: 1.0, wordCount: 0, speakingRate: 0.0)
@@ -15,10 +15,16 @@ class ConnectedModeService: ObservableObject {
     @Published var errorMessage: String?
     @Published var connectionStatus: String = "Disconnected"
 
-    // MARK: - Private Properties
+    
     private var audioEngine: AVAudioEngine?
     private var inputNode: AVAudioInputNode?
     private var audioSession: AVAudioSession?
+    
+    
+    private var playbackEngine: AVAudioEngine?
+    private var audioPlayerNode: AVAudioPlayerNode?
+    private var audioQueue = Data() 
+    private var isPlayingAudio = false
 
     private var openaiWebSocket: URLSessionWebSocketTask?
     private let aiService = AIService.shared
@@ -29,10 +35,10 @@ class ConnectedModeService: ObservableObject {
 
     private var openaiState: WebSocketState = .idle
 
-    // Audio batching
+    
     private var audioBuffer = Data()
     private var lastAudioSend = Date()
-    private let audioSendInterval: TimeInterval = 0.5  // Send every 500ms to prevent buffer overflow
+    private let audioSendInterval: TimeInterval = 0.5  
 
     private var silenceTimer: Timer?
     private var stabilityTimer: Timer?
@@ -45,40 +51,42 @@ class ConnectedModeService: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     
-    // AI response tracking
+    
     private var currentAIResponse = ""
     private var pendingUserTranscript = ""
+    private var isAIResponding = false 
 
-    // MARK: - Configuration
-    private let apiBaseURL = "http://10.0.0.188:3000"
-    private let openaiSessionURL = "http://10.0.0.188:3000/api/openai/realtime/session"
+    
+    private let apiBaseURL = "http:
+    private let openaiSessionURL = "http:
 
-    // MARK: - Initialization
+    
     init() {
         setupAudioSession()
+        setupPlaybackEngine()
         setupEmotionUpdateTimer()
     }
 
     deinit {
-        // Note: cleanup() is main actor isolated, but deinit can't be async
-        // In a real app, we'd handle this differently, but for now we'll let it be
-        // The cleanup will happen when the object is deallocated
+        
+        
+        
     }
 
-    // MARK: - Public Methods
+    
 
     func startConversation() async {
         do {
             conversationState = .listening
             errorMessage = nil
 
-            // Get OpenAI token from backend
+            
             let openaiToken = try await getOpenAIToken()
 
-            // Initialize OpenAI connection
+            
             try await setupOpenAIConnection(token: openaiToken)
 
-            // Start audio capture
+            
             try startAudioCapture()
 
             print("✅ Connected Mode conversation started")
@@ -98,7 +106,7 @@ class ConnectedModeService: ObservableObject {
 
     func killSwitch() {
         Task { @MainActor in
-            // Immediate stop - clear all buffers and connections
+            
             cleanup()
             conversationState = .idle
             liveCaptionState = LiveCaptionState(
@@ -111,21 +119,60 @@ class ConnectedModeService: ObservableObject {
         }
     }
 
-    // MARK: - Private Methods
+    
 
     private func setupAudioSession() {
         audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession?.setCategory(
-                .playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
+                .playAndRecord, 
+                mode: .voiceChat, 
+                options: [.allowBluetooth] 
+            )
             try audioSession?.setActive(true)
+            
+            
+            try audioSession?.overrideOutputAudioPort(.none)
+            print("✅ Audio session configured for recording and earpiece playback")
         } catch {
             print("❌ Failed to setup audio session: \(error)")
         }
     }
 
+    private func setupPlaybackEngine() {
+        playbackEngine = AVAudioEngine()
+        audioPlayerNode = AVAudioPlayerNode()
+        
+        guard let playbackEngine = playbackEngine,
+              let audioPlayerNode = audioPlayerNode else {
+            print("❌ Failed to create audio playback engine")
+            return
+        }
+        
+        
+        playbackEngine.attach(audioPlayerNode)
+        
+        
+        let outputFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, 
+                                       sampleRate: 16000, 
+                                       channels: 1, 
+                                       interleaved: false)
+        
+        if let outputFormat = outputFormat {
+            playbackEngine.connect(audioPlayerNode, to: playbackEngine.outputNode, format: outputFormat)
+        }
+        
+        do {
+            try playbackEngine.start()
+            audioPlayerNode.play()
+            print("✅ Audio playback engine started")
+        } catch {
+            print("❌ Failed to start playback engine: \(error)")
+        }
+    }
+
     private func setupEmotionUpdateTimer() {
-        // Update emotion strip at ~4 Hz to avoid flicker
+        
         emotionUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) {
             [weak self] _ in
             Task { @MainActor in
@@ -162,18 +209,18 @@ class ConnectedModeService: ObservableObject {
     }
 
     private func setupOpenAIConnection(token: String) async throws {
-        // Create WebSocket URL for OpenAI Realtime API
-        let wsURLString = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview"
+        
+        let wsURLString = "wss:
         guard let wsURL = URL(string: wsURLString) else {
             throw ConnectedModeError.websocketConnectionFailed("Invalid OpenAI WebSocket URL")
         }
 
-        // Create WebSocket task with Bearer token authentication
+        
         var request = URLRequest(url: wsURL)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("realtime=v1", forHTTPHeaderField: "OpenAI-Beta")
 
-        // Configure URLSession for better WebSocket handling
+        
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 30
         config.timeoutIntervalForResource = 60
@@ -183,14 +230,14 @@ class ConnectedModeService: ObservableObject {
         openaiWebSocket = session.webSocketTask(with: request)
         openaiWebSocket?.resume()
 
-        // Start receiving messages
+        
         receiveOpenAIMessages()
 
-        // Send initial session configuration
+        
         await sendOpenAISessionUpdate()
 
-        // Add small delay to ensure session is configured
-        try await Task.sleep(nanoseconds: 100_000_000)  // 100ms
+        
+        try await Task.sleep(nanoseconds: 100_000_000)  
 
         print("🔗 OpenAI Realtime connection established")
         updateConnectionStatus()
@@ -202,8 +249,8 @@ class ConnectedModeService: ObservableObject {
             "session": [
                 "modalities": ["text", "audio"],
                 "instructions":
-                    "You are a warm, trauma-informed counselor. Use OARS techniques. Keep responses brief and gentle. Always respond in English.",
-                "voice": "alloy",
+                    "You are a warm, trauma-informed counselor. Use OARS techniques. Keep responses brief and gentle. Speak with empathy and understanding. Always respond in English.",
+                "voice": "verse", 
                 "input_audio_format": "pcm16",
                 "output_audio_format": "pcm16",
                 "input_audio_transcription": [
@@ -261,30 +308,35 @@ class ConnectedModeService: ObservableObject {
     private func stopAudioCapture() {
         inputNode?.removeTap(onBus: 0)
         audioEngine?.stop()
-        audioBuffer = Data()  // Clear any pending audio
+        audioBuffer = Data()  
         print("⏹️ Audio capture stopped")
     }
 
     private func processAudioBuffer(_ buffer: AVAudioPCMBuffer) async {
+        
+        guard !isAIResponding else {
+            return
+        }
+        
         guard let channelData = buffer.floatChannelData?[0] else { return }
 
         let frameCount = Int(buffer.frameLength)
         let sampleRate = buffer.format.sampleRate
 
-        // Convert to 16-bit PCM data
+        
         var pcmData = Data()
         for i in 0..<frameCount {
             let sample = Int16(channelData[i] * Float(Int16.max))
             pcmData.append(contentsOf: withUnsafeBytes(of: sample.littleEndian) { Data($0) })
         }
 
-        // Resample to 16kHz if needed
+        
         let resampledData = await resampleAudioFor16kHz(pcmData, originalSampleRate: sampleRate)
 
-        // Accumulate audio data in buffer
+        
         audioBuffer.append(resampledData)
 
-        // Send batched audio if enough time has passed
+        
         let now = Date()
         if now.timeIntervalSince(lastAudioSend) >= audioSendInterval {
             await sendBatchedAudio()
@@ -295,15 +347,15 @@ class ConnectedModeService: ObservableObject {
     private func sendBatchedAudio() async {
         guard !audioBuffer.isEmpty else { return }
 
-        // Check if OpenAI connection is open before sending
+        
         guard openaiState == .open else {
-            // Clear buffer if connection is not open
+            
             audioBuffer = Data()
             return
         }
 
-        // Limit buffer size to prevent overwhelming WebSocket
-        let maxBufferSize = 48000  // ~3 seconds at 16kHz (48KB max)
+        
+        let maxBufferSize = 48000  
         let currentBuffer: Data
         if audioBuffer.count > maxBufferSize {
             currentBuffer = Data(audioBuffer.prefix(maxBufferSize))
@@ -313,34 +365,34 @@ class ConnectedModeService: ObservableObject {
             audioBuffer = Data()
         }
 
-        // Only log buffer size occasionally to avoid spam
+        
         if Int.random(in: 1...20) == 1 {
             print("📊 Audio buffer size: \(currentBuffer.count) bytes")
         }
 
-        // Send to OpenAI only
+        
         await sendAudioToOpenAI(currentBuffer)
     }
 
     private func resampleAudioFor16kHz(_ data: Data, originalSampleRate: Double) async -> Data {
-        // Simple downsampling for 16kHz target
-        // Most systems record at 44.1kHz or 48kHz, so we need to downsample
+        
+        
         let targetSampleRate: Double = 16000
         let ratio = originalSampleRate / targetSampleRate
 
-        // If already at target rate, return as-is
+        
         if abs(ratio - 1.0) < 0.01 {
             return data
         }
 
-        // Simple decimation - take every nth sample
+        
         let decimationFactor = Int(ratio)
         var resampledData = Data()
 
-        // Process 16-bit samples (2 bytes each)
+        
         for i in stride(from: 0, to: data.count - 1, by: 2) {
             if i % (decimationFactor * 2) == 0 {
-                // Take this sample
+                
                 resampledData.append(data[i])
                 resampledData.append(data[i + 1])
             }
@@ -351,10 +403,10 @@ class ConnectedModeService: ObservableObject {
 
     private func sendAudioToOpenAI(_ audioData: Data) async {
         guard openaiState == .open, let webSocket = openaiWebSocket else {
-            return  // Skip sending if not open
+            return  
         }
 
-        // Create input_audio_buffer.append event with base64-encoded audio
+        
         let base64Audio = audioData.base64EncodedString()
         let audioEvent: [String: Any] = [
             "type": "input_audio_buffer.append",
@@ -383,7 +435,7 @@ class ConnectedModeService: ObservableObject {
                 Task { @MainActor in
                     self?.openaiState = .open
                     await self?.handleOpenAIMessage(message)
-                    // Continue receiving
+                    
                     self?.receiveOpenAIMessages()
                 }
 
@@ -393,7 +445,7 @@ class ConnectedModeService: ObservableObject {
                     self?.openaiState = .closed
                     print("🔌 OpenAI connection lost - stopping audio stream")
 
-                    // Stop audio capture when connection is lost
+                    
                     self?.stopAudioCapture()
 
                     await self?.handleError(error)
@@ -418,14 +470,14 @@ class ConnectedModeService: ObservableObject {
                         pendingUserTranscript = transcript
                         await updateLiveCaption(transcript, isFinal: true)
                         await analyzeTranscriptWithLocalAI(transcript)
-                        // Don't finalize turn here - wait for AI response
+                        
                     }
                     
                 case "conversation.item.created":
                     if let item = json["item"] as? [String: Any] {
                         print("🔄 Item created: \(item["role"] as? String ?? "unknown") - \(item["type"] as? String ?? "unknown")")
                         
-                        // Handle user message items
+                        
                         if let role = item["role"] as? String, role == "user",
                            let content = item["content"] as? [[String: Any]] {
                             for contentItem in content {
@@ -442,11 +494,15 @@ class ConnectedModeService: ObservableObject {
                 case "response.created", "response.output_item.added":
                     print("🤖 AI response started")
                     
+                    isAIResponding = true
+                    await pauseAudioInput()
+                    await clearAudioBuffer()
+                    
                 case "response.content_part.added":
                     if let part = json["part"] as? [String: Any],
                        let transcript = part["transcript"] as? String {
                         print("🤖 AI response part: \(transcript)")
-                        // Store for conversation turn
+                        
                         await handleAIResponsePart(transcript)
                     }
                     
@@ -455,7 +511,7 @@ class ConnectedModeService: ObservableObject {
                     
                 case "input_audio_buffer.speech_stopped":
                     print("🔇 Speech ended")
-                    // Don't trigger response - OpenAI handles this automatically with server_vad
+                    
                     
                 case "input_audio_buffer.committed":
                     print("✅ Audio buffer committed")
@@ -463,7 +519,7 @@ class ConnectedModeService: ObservableObject {
                 case "response.audio_transcript.delta":
                     if let delta = json["delta"] as? String {
                         print("🤖 AI delta: \(delta)")
-                        // Accumulate the delta response
+                        
                         await handleAIResponsePart(delta)
                     }
                     
@@ -473,14 +529,22 @@ class ConnectedModeService: ObservableObject {
                         await handleFinalAIResponse(transcript)
                     }
                     
-                case "response.audio.delta", "response.audio.done":
-                    // Audio data - no need to log
-                    break
+                case "response.audio.delta":
+                    if let audioBase64 = json["delta"] as? String {
+                        await playAudioChunk(audioBase64)
+                    }
+                    
+                case "response.audio.done":
+                    print("🔊 AI audio response completed")
+                    isPlayingAudio = false
+                    isAIResponding = false 
+                    
+                    await resumeAudioInput()
                     
                 case "conversation.item.input_audio_transcription.delta":
                     if let delta = json["delta"] as? String {
                         print("📝 User speech: \(delta)")
-                        // Update live caption with partial transcript
+                        
                         await updateLiveCaption(delta, isFinal: false)
                     }
                     
@@ -495,7 +559,7 @@ class ConnectedModeService: ObservableObject {
                     }
                     
                 default:
-                    // Only log unhandled events that might be important
+                    
                     if !["response.content_part.done", "response.output_item.done", "response.done", "rate_limits.updated"].contains(eventType) {
                         print("🔄 Unhandled OpenAI event: \(eventType)")
                     }
@@ -503,7 +567,7 @@ class ConnectedModeService: ObservableObject {
             }
 
         case .data(_):
-            // Handle binary data (audio responses)
+            
             print("📦 Received audio data from OpenAI")
 
         @unknown default:
@@ -512,27 +576,27 @@ class ConnectedModeService: ObservableObject {
     }
 
     private func analyzeTranscriptWithLocalAI(_ transcript: String) async {
-        // Only analyze non-empty transcripts
+        
         guard !transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
 
-        // Use AIService to analyze emotion
+        
         let sentimentAnalysis = aiService.analyzeSentiment(transcript)
 
-        // Map AIService results to EmotionStripState
+        
         await updateEmotionDataFromLocalAI(
-            arousal: sentimentAnalysis.sentimentScore,  // Use sentiment as arousal proxy
-            valence: sentimentAnalysis.valenceSeries.first ?? 0.5,  // Use first valence value
-            energy: sentimentAnalysis.sentimentScore  // Use sentiment as energy proxy
+            arousal: sentimentAnalysis.sentimentScore,  
+            valence: sentimentAnalysis.valenceSeries.first ?? 0.5,  
+            energy: sentimentAnalysis.sentimentScore  
         )
     }
 
     private func updateEmotionDataFromLocalAI(arousal: Double, valence: Double, energy: Double)
         async
     {
-        // Update emotion strip state with local AI analysis
+        
         emotionStripState = EmotionStripState(
             arousal: max(0.0, min(1.0, arousal)),
-            valence: max(-1.0, min(1.0, (valence - 0.5) * 2)),  // Convert 0-1 to -1 to 1
+            valence: max(-1.0, min(1.0, (valence - 0.5) * 2)),  
             energy: max(0.0, min(1.0, energy)),
             trend: calculateTrend(arousal: arousal, valence: valence, energy: energy),
             lastUpdate: Date()
@@ -540,7 +604,7 @@ class ConnectedModeService: ObservableObject {
     }
 
     private func calculateTrend(arousal: Double, valence: Double, energy: Double) -> EmotionTrend {
-        // Simple trend calculation - could be enhanced with historical data
+        
         return .stable
     }
 
@@ -552,12 +616,12 @@ class ConnectedModeService: ObservableObject {
         liveCaptionState = LiveCaptionState(
             partialText: text,
             isFinalized: isFinal,
-            confidence: 0.9,  // TODO: Get from OpenAI
+            confidence: 0.9,  
             wordCount: wordCount,
             speakingRate: speakingRate
         )
 
-        // Check for turn boundaries
+        
         if !isFinal {
             lastPartialText = text
             lastPartialUpdate = Date()
@@ -566,8 +630,8 @@ class ConnectedModeService: ObservableObject {
     }
 
     private func updateEmotionStrip() {
-        // Smooth updates to avoid flicker
-        // This runs at 4 Hz from the timer
+        
+        
     }
 
     private func calculateSpeakingRate(wordCount: Int) -> Double {
@@ -579,7 +643,7 @@ class ConnectedModeService: ObservableObject {
         silenceTimer?.invalidate()
         stabilityTimer?.invalidate()
 
-        // Start silence detection timer
+        
         silenceTimer = Timer.scheduledTimer(
             withTimeInterval: AudioConfig.silenceThreshold, repeats: false
         ) { [weak self] _ in
@@ -593,20 +657,20 @@ class ConnectedModeService: ObservableObject {
         let timeSinceLastUpdate = Date().timeIntervalSince(lastPartialUpdate)
 
         if timeSinceLastUpdate >= AudioConfig.stabilityThreshold {
-            // Turn has ended - finalize
+            
             await finalizeTurn(lastPartialText)
         }
     }
 
     private func finalizeTurn(_ transcript: String) async {
-        // This method is now only used for manual finalization
-        // The actual conversation turn creation happens in handleFinalAIResponse
+        
+        
         conversationState = .analyzing
         
-        // Store transcript for when AI responds
+        
         pendingUserTranscript = transcript
         
-        // Update UI with finalized transcript
+        
         liveCaptionState = LiveCaptionState(
             partialText: transcript,
             isFinalized: true,
@@ -620,22 +684,22 @@ class ConnectedModeService: ObservableObject {
                 }.count)
         )
         
-        // Wait for AI response - don't create conversation turn yet
+        
         conversationState = .listening
         
-        // Reset turn timing
+        
         turnStartTime = Date()
         currentTurnDuration = 0
         lastPartialText = ""
     }
 
     private func handleAIResponsePart(_ transcript: String) async {
-        // Accumulate AI response parts
+        
         currentAIResponse += transcript
     }
     
     private func triggerAIResponse() async {
-        // Send response.create event to trigger AI response
+        
         guard openaiState == .open, let webSocket = openaiWebSocket else {
             return
         }
@@ -665,11 +729,105 @@ class ConnectedModeService: ObservableObject {
         }
     }
 
+    private func pauseAudioInput() async {
+        
+        inputNode?.removeTap(onBus: 0)
+        print("⏸️ Audio input paused during AI response")
+    }
+    
+    private func clearAudioBuffer() async {
+        
+        guard openaiState == .open, let webSocket = openaiWebSocket else {
+            return
+        }
+        
+        let clearEvent: [String: Any] = [
+            "type": "input_audio_buffer.clear"
+        ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: clearEvent)
+            let message = URLSessionWebSocketTask.Message.string(
+                String(data: jsonData, encoding: .utf8) ?? "")
+            
+            webSocket.send(message) { error in
+                if let error = error {
+                    print("❌ Failed to clear audio buffer: \(error)")
+                } else {
+                    print("🧹 Audio buffer cleared")
+                }
+            }
+        } catch {
+            print("❌ Failed to encode clear buffer event: \(error)")
+        }
+        
+        
+        audioBuffer = Data()
+    }
+    
+    private func resumeAudioInput() async {
+        
+        guard let inputNode = inputNode else { return }
+        
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) {
+            [weak self] buffer, _ in
+            Task {
+                await self?.processAudioBuffer(buffer)
+            }
+        }
+        print("▶️ Audio input resumed")
+    }
+
+    private func playAudioChunk(_ audioBase64: String) async {
+        guard let audioData = Data(base64Encoded: audioBase64),
+              let audioPlayerNode = audioPlayerNode else {
+            return
+        }
+        
+        
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, 
+                                 sampleRate: 16000, 
+                                 channels: 1, 
+                                 interleaved: false)
+        
+        guard let audioFormat = format else { return }
+        
+        let frameCount = audioData.count / 2 
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: AVAudioFrameCount(frameCount)) else {
+            return
+        }
+        
+        buffer.frameLength = AVAudioFrameCount(frameCount)
+        
+        
+        audioData.withUnsafeBytes { bytes in
+            let int16Buffer = bytes.bindMemory(to: Int16.self)
+            let floatChannelData = buffer.floatChannelData?[0]
+            
+            for i in 0..<frameCount {
+                
+                let sample = Float(int16Buffer[i]) / Float(Int16.max)
+                floatChannelData?[i] = sample
+            }
+        }
+        
+        
+        if !isPlayingAudio {
+            isPlayingAudio = true
+            print("🔊 Starting AI audio playback")
+        }
+        
+        
+        audioPlayerNode.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
+    }
+
     private func handleFinalAIResponse(_ transcript: String) async {
-        // Use the final transcript or accumulated response
+        
         let finalResponse = transcript.isEmpty ? currentAIResponse : transcript
         
-        // Create conversation turn with the actual AI response
+        
         if !pendingUserTranscript.isEmpty {
             let sentimentAnalysis = aiService.analyzeSentiment(pendingUserTranscript)
             
@@ -696,7 +854,7 @@ class ConnectedModeService: ObservableObject {
             
             conversationTurns.append(turn)
             
-            // Reset for next turn
+            
             currentAIResponse = ""
             pendingUserTranscript = ""
             turnStartTime = Date()
@@ -719,31 +877,38 @@ class ConnectedModeService: ObservableObject {
     }
 
     private func cleanup() {
-        // Stop timers
+        
         silenceTimer?.invalidate()
         stabilityTimer?.invalidate()
         emotionUpdateTimer?.invalidate()
 
-        // Close WebSocket connections
+        
         openaiWebSocket?.cancel(with: .normalClosure, reason: nil)
 
-        // Stop audio capture
+        
         inputNode?.removeTap(onBus: 0)
         audioEngine?.stop()
+        
+        
+        audioPlayerNode?.stop()
+        playbackEngine?.stop()
 
-        // Reset state
+        
         openaiWebSocket = nil
         audioEngine = nil
         inputNode = nil
+        audioPlayerNode = nil
+        playbackEngine = nil
 
-        // Reset connection states
+        
         openaiState = .idle
 
-        // Clear audio buffer
+        
         audioBuffer = Data()
         
-        // Reset AI response tracking
+        
         currentAIResponse = ""
         pendingUserTranscript = ""
+        isAIResponding = false
     }
 }
