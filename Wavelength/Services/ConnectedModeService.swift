@@ -44,6 +44,10 @@ class ConnectedModeService: ObservableObject {
     private var currentTurnDuration: TimeInterval = 0
 
     private var cancellables = Set<AnyCancellable>()
+    
+    // AI response tracking
+    private var currentAIResponse = ""
+    private var pendingUserTranscript = ""
 
     // MARK: - Configuration
     private let apiBaseURL = "http://10.0.0.188:3000"
@@ -198,7 +202,7 @@ class ConnectedModeService: ObservableObject {
             "session": [
                 "modalities": ["text", "audio"],
                 "instructions":
-                    "You are a warm, trauma-informed counselor. Use OARS techniques. Keep responses brief and gentle.",
+                    "You are a warm, trauma-informed counselor. Use OARS techniques. Keep responses brief and gentle. Always respond in English.",
                 "voice": "alloy",
                 "input_audio_format": "pcm16",
                 "output_audio_format": "pcm16",
@@ -211,7 +215,6 @@ class ConnectedModeService: ObservableObject {
                     "prefix_padding_ms": 300,
                     "silence_duration_ms": 200,
                 ],
-                "temperature": 0.8,
             ],
         ]
 
@@ -311,7 +314,7 @@ class ConnectedModeService: ObservableObject {
         }
 
         // Only log buffer size occasionally to avoid spam
-        if Int.random(in: 1...10) == 1 {
+        if Int.random(in: 1...20) == 1 {
             print("📊 Audio buffer size: \(currentBuffer.count) bytes")
         }
 
@@ -403,17 +406,99 @@ class ConnectedModeService: ObservableObject {
         switch message {
         case .string(let text):
             if let data = text.data(using: .utf8),
-                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let eventType = json["type"] as? String
             {
-
-                if let transcript = json["transcript"] as? String {
-                    await updateLiveCaption(transcript, isFinal: false)
-                    // Analyze emotion from partial transcript
-                    await analyzeTranscriptWithLocalAI(transcript)
-                }
-
-                if let finalTranscript = json["final_transcript"] as? String {
-                    await finalizeTurn(finalTranscript)
+                print("🔄 OpenAI Event: \(eventType)")
+                
+                switch eventType {
+                case "conversation.item.input_audio_transcription.completed":
+                    if let transcript = json["transcript"] as? String {
+                        print("📝 User transcript: \(transcript)")
+                        pendingUserTranscript = transcript
+                        await updateLiveCaption(transcript, isFinal: true)
+                        await analyzeTranscriptWithLocalAI(transcript)
+                        // Don't finalize turn here - wait for AI response
+                    }
+                    
+                case "conversation.item.created":
+                    if let item = json["item"] as? [String: Any] {
+                        print("🔄 Item created: \(item["role"] as? String ?? "unknown") - \(item["type"] as? String ?? "unknown")")
+                        
+                        // Handle user message items
+                        if let role = item["role"] as? String, role == "user",
+                           let content = item["content"] as? [[String: Any]] {
+                            for contentItem in content {
+                                if let transcript = contentItem["transcript"] as? String, !transcript.isEmpty {
+                                    print("📝 User transcript found: \(transcript)")
+                                    pendingUserTranscript = transcript
+                                    await updateLiveCaption(transcript, isFinal: true)
+                                    await analyzeTranscriptWithLocalAI(transcript)
+                                }
+                            }
+                        }
+                    }
+                    
+                case "response.created", "response.output_item.added":
+                    print("🤖 AI response started")
+                    
+                case "response.content_part.added":
+                    if let part = json["part"] as? [String: Any],
+                       let transcript = part["transcript"] as? String {
+                        print("🤖 AI response part: \(transcript)")
+                        // Store for conversation turn
+                        await handleAIResponsePart(transcript)
+                    }
+                    
+                case "input_audio_buffer.speech_started":
+                    print("🎤 Speech detected")
+                    
+                case "input_audio_buffer.speech_stopped":
+                    print("🔇 Speech ended")
+                    // Don't trigger response - OpenAI handles this automatically with server_vad
+                    
+                case "input_audio_buffer.committed":
+                    print("✅ Audio buffer committed")
+                    
+                case "response.audio_transcript.delta":
+                    if let delta = json["delta"] as? String {
+                        print("🤖 AI delta: \(delta)")
+                        // Accumulate the delta response
+                        await handleAIResponsePart(delta)
+                    }
+                    
+                case "response.audio_transcript.done":
+                    if let transcript = json["transcript"] as? String {
+                        print("🤖 AI final response: \(transcript)")
+                        await handleFinalAIResponse(transcript)
+                    }
+                    
+                case "response.audio.delta", "response.audio.done":
+                    // Audio data - no need to log
+                    break
+                    
+                case "conversation.item.input_audio_transcription.delta":
+                    if let delta = json["delta"] as? String {
+                        print("📝 User speech: \(delta)")
+                        // Update live caption with partial transcript
+                        await updateLiveCaption(delta, isFinal: false)
+                    }
+                    
+                case "session.created", "session.updated":
+                    print("✅ OpenAI session configured")
+                    
+                case "error":
+                    if let error = json["error"] as? [String: Any],
+                       let message = error["message"] as? String {
+                        print("❌ OpenAI error: \(message)")
+                        await handleError(ConnectedModeError.openAIError(message))
+                    }
+                    
+                default:
+                    // Only log unhandled events that might be important
+                    if !["response.content_part.done", "response.output_item.done", "response.done", "rate_limits.updated"].contains(eventType) {
+                        print("🔄 Unhandled OpenAI event: \(eventType)")
+                    }
                 }
             }
 
@@ -514,32 +599,14 @@ class ConnectedModeService: ObservableObject {
     }
 
     private func finalizeTurn(_ transcript: String) async {
+        // This method is now only used for manual finalization
+        // The actual conversation turn creation happens in handleFinalAIResponse
         conversationState = .analyzing
-
-        // Analyze final transcript with local AI
-        let sentimentAnalysis = aiService.analyzeSentiment(transcript)
-
-        // Create local emotion snapshot
-        let prosodySnapshot = ProsodySnapshot(
-            transcript: transcript,
-            prosody: ProsodyData(
-                arousal: sentimentAnalysis.sentimentScore,
-                valence: sentimentAnalysis.valenceSeries.first ?? 0.5,
-                energy: sentimentAnalysis.sentimentScore,
-                events: []
-            )
-        )
-
-        // Create conversation turn
-        let turn = ConversationTurn(
-            userTranscript: transcript,
-            prosodySnapshot: prosodySnapshot,
-            duration: currentTurnDuration
-        )
-
-        conversationTurns.append(turn)
-
-        // Update UI
+        
+        // Store transcript for when AI responds
+        pendingUserTranscript = transcript
+        
+        // Update UI with finalized transcript
         liveCaptionState = LiveCaptionState(
             partialText: transcript,
             isFinalized: true,
@@ -552,14 +619,91 @@ class ConnectedModeService: ObservableObject {
                     !$0.isEmpty
                 }.count)
         )
-
-        // TODO: Trigger AI response (Phase 3)
+        
+        // Wait for AI response - don't create conversation turn yet
         conversationState = .listening
-
-        // Reset for next turn
+        
+        // Reset turn timing
         turnStartTime = Date()
         currentTurnDuration = 0
         lastPartialText = ""
+    }
+
+    private func handleAIResponsePart(_ transcript: String) async {
+        // Accumulate AI response parts
+        currentAIResponse += transcript
+    }
+    
+    private func triggerAIResponse() async {
+        // Send response.create event to trigger AI response
+        guard openaiState == .open, let webSocket = openaiWebSocket else {
+            return
+        }
+        
+        let responseEvent: [String: Any] = [
+            "type": "response.create",
+            "response": [
+                "modalities": ["text", "audio"],
+                "instructions": "Respond as a warm, trauma-informed counselor using OARS techniques. Keep responses brief and gentle."
+            ]
+        ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: responseEvent)
+            let message = URLSessionWebSocketTask.Message.string(
+                String(data: jsonData, encoding: .utf8) ?? "")
+            
+            webSocket.send(message) { error in
+                if let error = error {
+                    print("❌ Failed to trigger AI response: \(error)")
+                } else {
+                    print("🤖 AI response triggered")
+                }
+            }
+        } catch {
+            print("❌ Failed to encode response event: \(error)")
+        }
+    }
+
+    private func handleFinalAIResponse(_ transcript: String) async {
+        // Use the final transcript or accumulated response
+        let finalResponse = transcript.isEmpty ? currentAIResponse : transcript
+        
+        // Create conversation turn with the actual AI response
+        if !pendingUserTranscript.isEmpty {
+            let sentimentAnalysis = aiService.analyzeSentiment(pendingUserTranscript)
+            
+            let prosodySnapshot = ProsodySnapshot(
+                transcript: pendingUserTranscript,
+                prosody: ProsodyData(
+                    arousal: sentimentAnalysis.sentimentScore,
+                    valence: sentimentAnalysis.valenceSeries.first ?? 0.5,
+                    energy: sentimentAnalysis.sentimentScore,
+                    events: []
+                )
+            )
+            
+            let turn = ConversationTurn(
+                userTranscript: pendingUserTranscript,
+                prosodySnapshot: prosodySnapshot,
+                assistantResponse: finalResponse,
+                duration: currentTurnDuration
+            )
+            
+            print("🎯 Displaying conversation turn:")
+            print("   User: \(pendingUserTranscript)")
+            print("   AI: \(finalResponse)")
+            
+            conversationTurns.append(turn)
+            
+            // Reset for next turn
+            currentAIResponse = ""
+            pendingUserTranscript = ""
+            turnStartTime = Date()
+            currentTurnDuration = 0
+        }
+        
+        conversationState = .listening
     }
 
     private func updateConnectionStatus() {
@@ -597,5 +741,9 @@ class ConnectedModeService: ObservableObject {
 
         // Clear audio buffer
         audioBuffer = Data()
+        
+        // Reset AI response tracking
+        currentAIResponse = ""
+        pendingUserTranscript = ""
     }
 }

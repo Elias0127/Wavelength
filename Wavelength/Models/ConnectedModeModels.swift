@@ -138,6 +138,7 @@ enum ConnectedModeError: Error, LocalizedError {
     case websocketConnectionFailed(String)
     case transcriptionFailed(String)
     case prosodyAnalysisFailed(String)
+    case openAIError(String)
 
     var errorDescription: String? {
         switch self {
@@ -153,6 +154,8 @@ enum ConnectedModeError: Error, LocalizedError {
             return "Transcription failed: \(message)"
         case .prosodyAnalysisFailed(let message):
             return "Prosody analysis failed: \(message)"
+        case .openAIError(let message):
+            return "OpenAI error: \(message)"
         }
     }
 }
