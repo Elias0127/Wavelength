@@ -1,5 +1,7 @@
 # Wavelength: AI-Powered Journaling Companion
 
+Youtube Demo: [Watch the demo on YouTube](https://www.youtube.com/watch?v=uWChhzo10TE)
+
 ## Design Documentation for Hackathon Submission
 
 ---
