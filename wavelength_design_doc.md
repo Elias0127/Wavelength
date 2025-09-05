@@ -1,6 +1,9 @@
 # Wavelength: AI-Powered Journaling Companion
 
 Youtube Demo: [Watch the demo on YouTube](https://www.youtube.com/watch?v=uWChhzo10TE)
+> - **FYN:**  
+>   My voice dropped out in the middle of the demo because I was screen recording on my phone, and when the external mic was connected, it seems to have disconnected. Also, the demo didn’t capture the AI’s voice speaking back, even though that’s the main feature—the system is designed to be fully conversational between the user and the AI, with both voice interaction and live transcription.     
+>   I can record and attach another demo using a different recording tool if that’s allowe
 
 ## Design Documentation for Hackathon Submission
 
